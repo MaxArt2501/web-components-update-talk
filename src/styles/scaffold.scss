@@ -1,0 +1,69 @@
+@use 'sass:map';
+@use './variables.scss' as vars;
+
+$syntax-initial-values: (
+	length: 0px,
+	percentage: 0%,
+	time: 0s,
+	angle: 0deg,
+	color: #000,
+	number: 0,
+	integer: 0
+);
+
+@each $syntax in length percentage time angle color number integer {
+	@for $index from 1 through 2 {
+		@property --#{$syntax}-#{$index} {
+			syntax: '<#{$syntax}>';
+			initial-value: map.get($syntax-initial-values, $syntax);
+			inherits: true;
+		}
+	}
+}
+
+*,
+::before,
+::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#{vars.$headings},
+p,
+pre,
+figure {
+	margin: 0;
+}
+
+@for $level from 1 through 6 {
+	h#{$level} {
+		font-size: 0.75em + (7 - $level) * 0.25em;
+	}
+}
+
+hgroup {
+	> :is(#{vars.$headings}) {
+		line-height: 1;
+		&:not(:first-child) {
+			margin-top: 0.125em;
+		}
+		&:not(:last-child) {
+			margin-bottom: 0.125em;
+		}
+	}
+}
+
+em {
+	font-style: unset;
+	color: var(--brand-color);
+}
+
+pre, code {
+	font-family: vars.$monospace-font;
+}

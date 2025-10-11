@@ -1,0 +1,520 @@
+---
+import Code from '../components/Code.astro';
+const bt = '`';
+---
+
+<p-slide class="justify-between">
+	<hgroup>
+		<h2>Web Components</h2>
+		<p>The very basics</p>
+	</hgroup>
+	<img src="/img/webcomponents.svg" h="7.5" alt="Web Components logo" class="self-end" />
+</p-slide>
+<p-slide class="justify-evenly">
+	<hgroup>
+		<h3 class="h4">Web Components are<br /><strong><p-fragment index="5" effect="reveal">HTML</p-fragment> elements</strong></h3>
+	</hgroup>
+	<div flex class="gap-1 self-center">
+		<Code
+			lang="html"
+			code={`{#1;insert{<div>
+}#}{#1;reveal{  }#}<my-card>
+{#1;reveal{  }#}  ...
+{#1;reveal{  }#}</my-card>
+{#1;insert{</div>}#}`}
+			p-fragment="0"
+		/>
+		<Code
+			code={`class Card
+{#reveal{  extends {#highlight{HTMLElement}#} }#}{
+  // ...
+}`}
+			p-fragment="2"
+		/>
+	</div>
+</p-slide>
+<p-slide class="justify-evenly">
+	<hgroup>
+		<h3 class="h4">Web Components must be <strong>registered</strong></h3>
+	</hgroup>
+	<Code
+		code={`window.customElements
+  .define('{#highlight{my-card}#}', {#2;highlight blue{Card}#});`}
+		class="self-center"
+		p-fragment
+	/>
+	<p-fragment class="center">once and <u>only</u> once.</p-fragment>
+</p-slide>
+<p-slide class="justify-evenly">
+	<hgroup>
+		<h3 class="h4">Web Components have a <strong>lifecycle</strong></h3>
+	</hgroup>
+	<Code
+		code={`class Card extends HTMLElement {
+{#insert{  connectedCallback() {
+    // Things to do when attached
+  }}#}{#insert{  disconnectedCallback() {
+    // Things to do when detached
+  }}#}{#insert{  attributeChangedCallback(name, oldValue, value) {
+    // Things to do when an attribute changes
+  }}#}{#insert{  static observedAttributes = ['open'];
+}#}}`}
+		class="s06 self-center"
+		p-fragment
+	/>
+</p-slide>
+<p-slide class="justify-evenly">
+	<hgroup>
+		<h3 class="h4">Web Components can have a <strong>Shadow DOM</strong></h3>
+	</hgroup>
+	<Code
+		code={`class Card extends HTMLElement {
+  constructor() {
+    super();
+{#insert{    this.attachShadow({ mode: 'open' });
+}#}{#insert{    this.shadowRoot.innerHTML = ${bt}
+      <header></header>
+      <div>
+        <slot></slot>
+      </div>
+    ${bt};}#}  }
+}`}
+		class="s06 self-center"
+		p-fragment
+	/>
+</p-slide>
+<p-slide>
+	<img
+		src="/img/i-reject-your-reality.webp"
+		alt="Adam Savage from MythBusters saying 'I reject your reality and substitute my own'"
+		class="full-media"
+	/>
+	<div class="meme-text">
+		<span>I reject</span>
+		<span>your reality</span>
+		<span>and substitute</span>
+		<span>my own</span>
+	</div>
+</p-slide>
+<p-slide class="gap-1">
+	<div class="input-type-range"></div>
+	<div flex="column" class="self-center gap-1">
+		<Code lang="xml" code={`<input type="range">
+{#insert{  #shadow-root (user agent)
+    <div>
+      <div pseudo="-webkit-slider-runnable-track" id="track">
+        <div id="thumb"></div>
+      </div>
+    </div>
+</input>}#}`} class="self-center s05"/>
+		<div flex class="justify-between align-start gap-1 relative">
+			<Code lang="xml" code={`<input type="range">   
+{#2;insert{{#3;collapse{
+
+
+
+}#}</input>}#}`} class="s05" p-fragment id="inputRange"/>
+			<Code lang="xml" code={`  <p>Select a value</p>
+  <button>
+    Change currency
+  </button>`} class="s05" p-fragment="2" effect="to-be-trashed"/>
+			<div class="stack" p-fragment="3" effect="tip-and-catch">
+				<img src="/img/trash.png" alt="Trash bin" h="3">
+				<img src="/img/trash-full.png" alt="Trash bin" h="3">
+			</div>
+		</div>
+	</div>
+</p-slide>
+<p-slide class="gap-1">
+	<details open>
+		<summary>Collapsible</summary>
+		<p>With some content</p>
+	</details>
+	<div flex class="gap-1 self-center align-start relative">
+		<Code lang="html" code={`<details>
+{#insert{  #shadow-root (user agent)
+    <slot id="details-summary">     
+      {#2;dim{<summary>Details</summary>}#}
+{#2;insert{
+}#}    </slot>
+    <slot id="details-content">
+{#2;insert{
+}#}    </slot>
+}#}</details>`} class="s05"/>
+		<p-fragment>
+			<Code lang="html" code={`<details>
+  {#2;dim{<summary>Collapsible</summary>}#}
+  {#2;dim{<p>With some content</p>}#}
+</details>`} class="s05"/>
+			<Code
+				lang="html"
+				code={`<summary>Collapsible</summary>`}
+				class="s05"
+				p-fragment="2"
+				effect="snatch"
+				style="--from: calc(2em + 40ch) 1lh; --to: 6ch 4lh"
+			/>
+			<Code
+				lang="html"
+				code={`<p>With some content</p>`}
+				class="s05"
+				p-fragment="2"
+				effect="snatch"
+				style="--from: calc(2em + 40ch) 2lh; --to: 6ch 7lh"
+			/>
+		</p-fragment>
+	</div>
+</p-slide>
+<p-slide class="justify-evenly">
+	<hgroup>
+		<h3 class="h4">Web Components can have <strong>slots</strong></h3>
+	</hgroup>
+	<div flex class="gap-1 relative">
+		<Code lang="html" code={`<my-card>
+  #shadow-root
+    <header>
+      <slot name="header">${' '.repeat(17)}
+{#0;insert{
+}#}      </slot>
+    </header>
+    <div>
+      <slot>
+{#0;insert{
+}#}      </slot>
+    </div>
+{#0;collapse{  <span slot="header">Mt. Fuji</span>
+  Photos from my last trip to Japan.
+}#}</my-card>`} class="s05" />
+		<Code
+			lang="html"
+			code={`<span slot="header">Mt. Fuji</span>`}
+			class="s05"
+			p-fragment="0"
+			effect="snatch"
+			style="--from: 2ch 10lh; --to: 8ch 4lh"
+		/>
+			<Code
+			lang="html"
+			code={`Photos from my last trip to Japan.`}
+			class="s05"
+			p-fragment="0"
+			effect="snatch"
+			style="--from: 2ch 11lh; --to: 8ch 9lh"
+		/>
+		<p-fragment class="grow">
+			<Code code={`this.attachShadow({
+	mode: 'open',
+	slotAssignment: 'manual'
+});
+{#insert{const nodes = Object.groupBy(
+  this.childNodes,
+  {#4;highlight blue{node =>
+    isHeading(node) ? 'headings' :
+    isContent(node) ? 'content' : 'rest'
+  }${' '.repeat(37)}}#}
+);
+headerSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{headings}#});
+contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`} class="s05"/>
+		</p-fragment>
+	</div>
+</p-slide>
+<p-slide class="justify-evenly">
+	<hgroup>
+		<h3 class="h4">Web Components can have <strong>encapsulation</strong></h3>
+	</hgroup>
+	<div flex class="gap-1 align-center self-center">
+		<Code lang="html" code={`{#1;insert{<style>
+  {#1.5;highlight blue{header}#} { color: blue }
+</style>
+}#}<section>
+  {#1.5;highlight blue{<header>}#}Report</header>
+{#2;insert{  <my-card>
+    #shadow-root
+{#3;insert{      <style>
+        {#3;highlight{header}#} { background: lime }
+      </style>
+}#}      {#2.5;highlight{<header>}#}Card title</header>
+  </my-card>
+}#}</section>`} class="s05" p-fragment=0 />
+		<p-fragment index="0" class="section">
+			<header>Report</header>
+			<p-fragment class="card" index="2">
+				<header>Card title</header>
+				<p>Lorem ipsum&hellip;</p>
+			</p-fragment>
+		</p-fragment>
+	</div>
+</p-slide>
+<p-slide class="justify-evenly">
+	<hgroup>
+		<h3 class="h4">Web Components can <strong>compose events</strong></h3>
+	</hgroup>
+	<div flex class="gap-1 self-center">
+		<section class="node-list">
+			<header>
+				<div>bubbles</div>
+				<div>composed</div>
+			</header>
+			<div class="node in-shadow">button</div>
+			<div class="node in-shadow">div</div>
+			<div class="node shadow-root">#shadow-root</div>
+			<div class="node host">my-card</div>
+			<div class="node">div</div>
+			<div class="node">body</div>
+			<p-fragment class="event bubbles composed">
+				<p-fragment class="event-example">click</p-fragment>
+			</p-fragment>
+		</section>
+		<section class="node-list">
+			<header>
+				<div>bubbles</div>
+				<div>-</div>
+			</header>
+			<div class="node in-shadow">button</div>
+			<div class="node in-shadow">div</div>
+			<div class="node shadow-root">#shadow-root</div>
+			<div class="node host">my-card</div>
+			<div class="node">div</div>
+			<div class="node">body</div>
+			<p-fragment class="event bubbles">
+				<p-fragment class="event-example">slotchange</p-fragment>
+			</p-fragment>
+		</section>
+		<section class="node-list">
+			<header>
+				<div>-</div>
+				<div>composed</div>
+			</header>
+			<div class="node in-shadow">button</div>
+			<div class="node in-shadow">div</div>
+			<div class="node shadow-root">#shadow-root</div>
+			<div class="node host">my-card</div>
+			<div class="node">div</div>
+			<div class="node">body</div>
+			<p-fragment class="event composed">
+				<p-fragment class="event-example">focus</p-fragment>
+			</p-fragment>
+		</section>
+		<section class="node-list">
+			<header>
+				<div>-</div>
+				<div>-</div>
+			</header>
+			<div class="node in-shadow">button</div>
+			<div class="node in-shadow">div</div>
+			<div class="node shadow-root">#shadow-root</div>
+			<div class="node host">my-card</div>
+			<div class="node">div</div>
+			<div class="node">body</div>
+			<p-fragment class="event">
+				<p-fragment class="event-example">mouseenter</p-fragment>
+			</p-fragment>
+		</section>
+	</div>
+</p-slide>
+<style lang="scss">
+	.meme-text {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		font-size: 150%;
+	}
+	.input-type-range {
+		--value: 60;
+		height: 0.5em;
+		background: linear-gradient(to right, rgb(135, 127, 255) calc(1% * var(--value)), gray 0) #aaa;
+		border-radius: 1em;
+		border: .1em solid #222;
+		width: 15em;
+		align-self: center;
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: calc(1% * var(--value));
+			border: inherit;
+			background-color: inherit;
+			height: 1em;
+			width: 1em;
+			border-radius: inherit;
+			translate: -50% -50%;
+		}
+	}
+	[effect='to-be-trashed'] {
+		position: absolute;
+    padding-block: 0;
+		top: calc(.5em + 1lh);
+    left: 0;
+		transition-property: opacity, transform;
+		&[previous] {
+			transform: translateX(20em) scale(0);
+		}
+	}
+	[effect='tip-and-catch'] {
+		image-rendering: pixelated;
+		transform-origin: 50% 100%;
+
+		> img:last-child {
+			opacity: 0;
+			transition: opacity 0s calc(var(--fragment-duration) * 1);
+		}
+
+		&[aria-hidden='false'] {
+			animation: tip-and-catch calc(var(--fragment-duration) * 2) linear 1 forwards;
+
+			> img:last-child {
+				opacity: 1;
+			}
+		}
+	}
+	@keyframes tip-and-catch {
+		0%, 100% { rotate: 0deg; }
+		20%, 80% { rotate: -45deg; }
+	}
+	details {
+		align-self: center;
+		border: .1em solid;
+		border-radius: .25em;
+		width: 12em;
+
+		&:open::details-content {
+			border-top: .1em solid;
+			padding: .25em .5em;
+		}
+	}
+	summary {
+		padding: .25em .5em;
+	}
+	.section {
+		padding: .5em 1em;
+		box-shadow: 0 0 .5em #0004;
+		
+		> header {
+			font-weight: bold;
+
+			pre:has([index="1"][aria-hidden="false"]) ~ & {
+				color: blue;
+			}
+		}
+	}
+	.card {
+		display: block;
+		border: .1em solid;
+		border-radius: .5em;
+		font-size: 75%;
+		margin-top: .5em;
+		overflow: clip;
+
+		> header {
+			font-size: 133%;
+			font-weight: bold;
+			padding: .25em .5em;
+			border-bottom: inherit;
+
+			pre:has([index="3"][aria-hidden="false"]) ~ .section > & {
+				background-color: lime;
+			}
+		}
+		p {
+			margin: 0;
+			padding: .333em .667em;
+		}
+	}
+</style>
+<style lang="scss">
+	@use '../styles/variables.scss' as vars;
+	.node-list {
+		font-family: vars.$monospace-font;
+		font-size: 60%;
+		display: flex;
+		flex-direction: column;
+		background: linear-gradient(currentColor, currentColor) 50% 3em/.1em calc(100% - 4em) no-repeat;
+		gap: .5em;
+		text-align: center;
+		position: relative;
+
+		header {
+		}
+	}
+	.node {
+		font-family: vars.$monospace-font;
+		border-radius: 100vmax;
+		border: .1em solid;
+		background: rgb(255, 196, 0);
+		padding: 0 .5em;
+		line-height: 1.3em;
+		
+		&:not(.shadow-root) {
+			font-weight: bold;
+			&::before { content: '<'; }
+			&::after { content: '>'; }
+		}
+
+		&.in-shadow {
+			background: cyan;
+		}
+		&.shadow-root {
+			background: white;
+			color: gray;
+		}
+		&.host {
+			background: lime;
+		}
+	}
+	.event {
+		position: absolute;
+		width: 2em;
+		aspect-ratio: 1;
+		border-radius: 100vmax;
+		background-color: red;
+		border: .1em solid;
+		inset: auto -1em 9.75em auto;
+		animation-iteration-count: infinite;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		rotate: -30deg;
+
+		&.bubbles {
+			animation-duration: calc(var(--fragment-duration) * 6);
+			animation-name: bubbles;
+		}
+		&.composed {
+			animation-duration: calc(var(--fragment-duration) * 6);
+			animation-name: composed;
+		}
+		&.bubbles.composed {
+			animation-duration: calc(var(--fragment-duration) * 15);
+			animation-name: bubbles-composed;
+		}
+	}
+	.event-example {
+		background-color: yellow;
+		font-size: 60%;
+		inset: auto 0 100%;
+		border-radius: 100vmax;
+		border: inherit;
+		padding: .25em .5em;
+		font-weight: bold;
+	}
+
+	@keyframes bubbles {
+		0%, 40% { translate: 0 0; }
+		50%, 70% { translate: 0 2em; }
+		80%, 100% { translate: 0 4em; }
+	}
+	@keyframes composed {
+		0%, 45% { translate: 0 0; }
+		55%, 100% { translate: 0 6em; }
+	}
+	@keyframes bubbles-composed {
+		0%, 20% { translate: 0 0; }
+		25%, 35% { translate: 0 2em; }
+		40%, 50% { translate: 0 4em; }
+		55%, 65% { translate: 0 6em; }
+		70%, 80% { translate: 0 8em; }
+		85%, 100% { translate: 0 10em; }
+	}
+</style>

@@ -1,0 +1,39 @@
+{
+	"name": "web-components-update-talk",
+	"description": "Web Components: where are we at now?",
+	"keywords": [
+		"presentation",
+		"frontend",
+		"web components"
+	],
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"astro": "^5.12.9",
+		"p-slides": "^1.4.2"
+	},
+	"devDependencies": {
+		"sass": "^1.89.2",
+		"vite-plugin-static-copy": "^3.1.0"
+	},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxArt2501/web-components-update-talk.git"
+  },
+  "author": {
+    "name": "Massimo Artizzu",
+    "email": "maxart.x@gmail.com"
+  },
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/MaxArt2501/web-components-update-talk/issues"
+  },
+  "homepage": "https://github.com/MaxArt2501/web-components-update-talk#readme"
+}
