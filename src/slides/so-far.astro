@@ -312,6 +312,68 @@ contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`
 		</section>
 	</div>
 </p-slide>
+<p-slide class="justify-between">
+	<h4 class="center">Good for:</h4>
+	<div grid="2" class="gap-1 align-center self-center">
+		<ul>
+			<li p-fragment="0">UI Kits</li>
+			<li p-fragment="1">Widgets</li>
+			<li p-fragment="2">Encapsulation</li>
+			<li p-fragment="3">Micro frontends</li>
+			<li p-fragment="4">Full apps</li>
+		</ul>
+		<div class="stack">
+			<svg p-fragment="0" viewBox="0 0 100 80" fill="none" role="img" aria-label="Example of a UI kit">
+				<rect width="23" height="10" rx="2" fill="blue"/>
+				<rect x="25.5" y="0.5" width="22" height="9" rx="2" stroke="blue"/>
+				<rect x="50" width="23" height="10" rx="2" fill="green"/>
+				<rect x="75" width="23" height="10" rx="2" fill="red"/>
+				<circle cx="5" cy="20" r="4" stroke="#444"/>
+				<circle cx="5" cy="20" r="2" fill="blue"/>
+				<circle cx="15" cy="20" r="4" stroke="#444"/>
+				<circle cx="25" cy="20" r="4" stroke="#aaa"/>
+				<circle cx="25" cy="20" r="2" fill="#aaa"/>
+				<circle cx="35" cy="20" r="4" stroke="#aaa"/>
+				<rect x="41" y="15.5" width="9" height="9" rx="2" fill="blue"/>
+				<path stroke="#fff" d="M43,20l2,2 3-4"/>
+				<rect x="52" y="16" width="8" height="8" rx="2" stroke="#444"/>
+				<rect x="62" y="15.5" width="9" height="9" rx="2" fill="#aaa"/>
+				<path stroke="#fff" d="M64,20l2,2 3-4"/>
+				<rect x="73" y="16" width="8" height="8" rx="2" stroke="#aaa"/>
+				<rect x="83" y="16" width="8" height="8" rx="2" stroke="#444"/>
+				<path stroke="blue" d="M85,20h4"/>
+				<rect x=".5" y="30" width="15" height="8" rx="4" stroke="#444"/>
+				<circle cx="11.5" cy="34" r="3.5" fill="blue"/>
+				<rect x="18.5" y="30" width="15" height="8" rx="4" stroke="#444"/>
+				<circle cx="22.5" cy="34" r="3.5" fill="#888"/>
+				<rect x="36.5" y="30" width="15" height="8" rx="4" stroke="#aaa"/>
+				<circle cx="47.5" cy="34" r="3.5" fill="#888"/>
+				<rect x="54.5" y="30" width="15" height="8" rx="4" stroke="#aaa"/>
+				<circle cx="58.5" cy="34" r="3.5" fill="#aaa"/>
+				<rect x=".5" y="45" width="50" height="34.5" rx="4" stroke="#444"/>
+				<rect x="1.5" y="46" width="48" height="10" rx="3" fill="#aaa"/>
+				<rect x="55" y="45" width="44.5" height="10" rx="2" stroke="#444"/>
+				<rect x="55" y="57" width="44.5" height="10" rx="2" stroke="red"/>
+				<rect x="55" y="69" width="44.5" height="10" rx="2" stroke="green"/>
+			</svg>
+			<img p-fragment="1" src="/img/weather.svg" alt="Example of a weather widget">
+			<Code lang="html" code={`<ng-wrapper>
+  <app-root>
+    <router-outlet/>
+    <app-home>
+      ...
+    <app-home>
+  </app-root>
+</ng-wrapper>`} p-fragment="2" class="s09"/>
+			<div grid="2" class="gap-05" p-fragment="3" aria-label="Example of a micro-frontend layout" style="padding: .5em">
+				<div class="mfe">news-feed</div>
+				<div class="mfe">live-chat</div>
+				<div class="mfe">stock-chart</div>
+			</div>
+			<img p-fragment="4" src="/img/webcomponents.svg" alt="Web Components logo">
+		</div>
+	</div>
+</p-slide>
 <style lang="scss">
 	.meme-text {
 		position: relative;
@@ -479,15 +541,15 @@ contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`
 
 		&.bubbles {
 			animation-duration: calc(var(--fragment-duration) * 6);
-			animation-name: bubbles;
+			&[aria-hidden='false'] { animation-name: bubbles; }
 		}
 		&.composed {
 			animation-duration: calc(var(--fragment-duration) * 6);
-			animation-name: composed;
+			&[aria-hidden='false'] { animation-name: composed; }
 		}
 		&.bubbles.composed {
 			animation-duration: calc(var(--fragment-duration) * 15);
-			animation-name: bubbles-composed;
+			&[aria-hidden='false'] { animation-name: bubbles-composed; }
 		}
 	}
 	.event-example {
@@ -498,6 +560,11 @@ contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`
 		border: inherit;
 		padding: .25em .5em;
 		font-weight: bold;
+	}
+
+	.stack > * {
+		background: #fff;
+		z-index: 1;
 	}
 
 	@keyframes bubbles {
@@ -516,5 +583,29 @@ contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`
 		55%, 65% { translate: 0 6em; }
 		70%, 80% { translate: 0 8em; }
 		85%, 100% { translate: 0 10em; }
+	}
+
+	.mfe {
+		background: chartreuse;
+		outline: .25em solid chartreuse;
+		position: relative;
+		border: .1em dashed;
+		font-size: 50%;
+		font-family: vars.$monospace-font;
+		font-weight: bold;
+		align-content: center;
+		text-align: center;
+
+		&::before { content: '<'; }
+		&::after { content: '>'; }
+		&:nth-child(2) {
+			grid-row-end: span 2;
+			background-color: aquamarine;
+			outline-color: aquamarine;
+		}
+		&:nth-child(3) {
+			background-color: salmon;
+			outline-color: salmon;
+		}
 	}
 </style>

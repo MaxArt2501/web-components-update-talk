@@ -1,3 +1,26 @@
+[flex] {
+	display: flex;
+}
+[grid] {
+	display: grid;
+	gap: 1em;
+}
+
+@each $wrap in wrap wrap-reverse {
+	[flex~="#{$wrap}"] {
+		flex-wrap: #{$wrap};
+	}
+}
+@each $direction in row column row-reverse column-reverse {
+	[flex~="#{$direction}"] {
+		flex-direction: #{$direction};
+	}
+}
+
+.grow {
+	flex-grow: 1;
+}
+
 @for $level from 1 through 6 {
 	.h#{$level} {
 		font-size: 0.75em + (7 - $level) * 0.25em;
@@ -95,29 +118,6 @@
 }
 .no-clip {
 	overflow: visible;
-}
-
-[flex] {
-	display: flex;
-}
-[grid] {
-	display: grid;
-	gap: 1em;
-}
-
-@each $wrap in wrap wrap-reverse {
-	[flex~="#{$wrap}"] {
-		flex-wrap: #{$wrap};
-	}
-}
-@each $direction in row column row-reverse column-reverse {
-	[flex~="#{$direction}"] {
-		flex-direction: #{$direction};
-	}
-}
-
-.grow {
-	flex-grow: 1;
 }
 
 @supports (height: attr(h em)) {
