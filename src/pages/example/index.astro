@@ -1,0 +1,107 @@
+---
+import pkg from '../../../package.json';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="shortcut icon" type="image/svg+xml" href="/img/webcomponents.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pkg.description} - Example</title>
+	</head>
+	<body>
+		<header>
+			<h1>Hotel booking</h1>
+		</header>
+		<main>
+			<form>
+				<fieldset>
+					<legend>Period</legend>
+					<label for="range">From date to date</label>
+					<date-range name="range" id="range" required value="/2025-10-30"></date-range>
+					<footer>
+						<button type="button">Next</button>
+					</footer>
+				</fieldset>
+				<fieldset disabled>
+					<legend>Hotel</legend>
+					<label for="hotel">Choose the venue</label>
+					<select name="hotel" id="hotel">
+						<option value="overlook">The Overlook Hotel</option>
+						<option value="bellagio">Bellagio</option>
+						<option value="plaza">The Plaza Hotel</option>
+					</select>
+					<footer>
+						<button type="reset">Reset</button>
+						<button type="submit">Submit</button>
+					</footer>
+				</fieldset>
+			</form>
+			<dialog></dialog>
+		</main>
+		<script>
+			const form = document.querySelector('form')!;
+			const fieldsets = document.querySelectorAll('fieldset');
+			const [dateRange] = fieldsets[0].elements as HTMLCollectionOf<HTMLInputElement>;
+			fieldsets[0].querySelector('button')!.addEventListener('click', () => {
+				if (dateRange.reportValidity()) {
+					fieldsets[1].disabled = false;
+				}
+			});
+			const dialog = document.querySelector('dialog')!;
+			form.addEventListener('reset', () => {
+				fieldsets[1].disabled = true;
+			});
+			form.addEventListener('submit', event => {
+				event.preventDefault();
+				const formData = new FormData(event.target as HTMLFormElement);
+				const params = new URLSearchParams(formData as any);
+				dialog.textContent = decodeURIComponent(params.toString());
+				dialog.showModal();
+			});
+		</script>
+		<script src="../../scripts/date-range.ts"></script>
+	</body>
+</html>
+<style lang="scss" is:global>
+	:root {
+		font-family: system-ui, sans-serif;
+		background-color: Canvas;
+		color: CanvasText;
+		color-scheme: light dark;
+		font-size: 150%;
+	}
+	fieldset {
+		flex-direction: column;
+		border: 0.1em solid;
+		border-radius: 0.25em;
+	}
+	footer,
+	fieldset {
+		display: flex;
+		gap: 0.5em;
+	}
+	select,
+	button,
+	::part(date-picker) {
+		font-family: inherit;
+		font-size: inherit;
+		padding: 0.25em 0.5em;
+		width: max-content;
+		border-style: solid;
+		border-radius: 0.25em;
+	}
+	select {
+		border-width: 0.1em;
+	}
+	button {
+		border: none;
+		background: Highlight;
+		color: HighlightText;
+		&:disabled {
+			opacity: 0.5;
+		}
+	}
+</style>

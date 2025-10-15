@@ -385,3 +385,178 @@ hgroup {
 		color: transparent;
 	}
 }
+
+.browser-logo {
+	height: 1em;
+}
+
+.flowchart {
+	display: grid;
+	grid-template-columns: repeat(var(--columns, 1), minmax(0, min-content));
+	text-align: center;
+	--arrow-size: .4em;
+	--line-size: .1em;
+	--margin-block: .5em;
+	--margin-inline: 1em;
+	--border-width: .1em;
+	--border-color: currentColor;
+
+
+	> * {
+		border: var(--border-width) solid;
+		position: relative;
+		margin: var(--margin-block) var(--margin-inline);
+		padding: .25em .5em;
+		align-content: center;
+	}
+	.start, .end {
+		border-radius: 100vmax;
+	}
+	.start {
+		background: lime;
+	}
+	.end {
+		background: #f88;
+	}
+	.process {
+		background: yellow;
+	}
+	.decision {
+		--_gradient: transparent 50%, var(--border-color) 0, calc(50% + var(--border-width)), var(--bg-color, #ccc) 0;
+		--margin-block: .25em;
+		--margin-inline: .5em;
+		padding: .5em 1em;
+		border: none;
+		background: linear-gradient(to bottom right, var(--_gradient)) 0 0/50% 50% no-repeat,
+			linear-gradient(to top left, var(--_gradient)) 100% 100%/50% 50% no-repeat,
+			linear-gradient(to bottom left, var(--_gradient)) 100% 0/50% 50% no-repeat,
+			linear-gradient(to top right, var(--_gradient)) 0 100%/50% 50% no-repeat;
+		.arrow {
+			--border-width: 0em;
+		}
+	}
+	.input-output {
+		--border-width: 0em;
+		padding-block: .35em;
+		> * { position: relative; }
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border: .1em solid;
+			background: #3cc1ff;
+			transform: skewX(-20deg);
+		}
+	}
+	.database {
+		border-radius: 50% / .5em;
+		padding-top: 1em;
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0.4em -.1em auto;
+			height: .4em;
+			border: inherit;
+			border-top: none;
+			border-bottom-left-radius: inherit;
+			border-bottom-right-radius: inherit;
+		}
+	}
+	.document {}
+	.manual-input {}
+	.preparation {
+		padding-inline: 0;
+		border-inline: none;
+		--margin-inline: 1.5em;
+		background-color: var(--bg-color, #d78cdf);
+		--_gradient: transparent 50%, var(--border-color) 0, calc(50% + var(--border-width)), var(--bg-color, #d78cdf) 0;
+		&::before, &::after {
+			content: '';
+			position: absolute;
+			aspect-ratio: 1 / 2;
+			height: calc(100% + .2em);
+			top: -.1em;
+		}
+		&::before {
+			right: 100%;
+			background: linear-gradient(135deg, var(--_gradient)) 0 0 / 100% 50% no-repeat,
+				linear-gradient(45deg, var(--_gradient)) 0 100% / 100% 50% no-repeat;
+		}
+		&::after {
+			left: 100%;
+			background: linear-gradient(225deg, var(--_gradient)) 0 0 / 100% 50% no-repeat,
+				linear-gradient(-45deg, var(--_gradient)) 0 100% / 100% 50% no-repeat;
+		}
+	}
+	.none {
+		--border-width: 0em;
+		min-height: var(--arrow-size);
+		.in {
+			&.left::before { inset-inline: auto 0em; }
+			&.right::before { inset-inline: 0em auto; }
+			&.top::before { inset-block: auto 0em; }
+			&.bottom::before { inset-block: 0em auto; }
+		}
+	}
+
+	.arrow {
+		position: absolute;
+		background-color: currentColor;
+		z-index: -1;
+		transition-delay: var(--fragment-duration);
+
+		&.in::before {
+			content: '';
+			position: absolute;
+			background: inherit;
+			width: var(--arrow-size);
+			height: var(--arrow-size);
+		}
+		&.top, &.bottom {
+			width: .1em;
+			inset-inline: calc(50% - var(--line-size) / 2);
+			&::before {
+				inset-inline: 50%;
+				translate: -50% 0;
+			}
+		}
+		&.top {
+			inset-block: calc(0em - var(--margin-block) - var(--border-width)) calc(50% - var(--line-size) / 2);
+			&::before {
+				inset-block: calc(var(--margin-block) + var(--line-size) / 2 - var(--arrow-size)) auto;
+				clip-path: polygon(0 0, 100% 0, 50% 100%);
+			}
+		}
+		&.bottom {
+			inset-block: calc(50% - var(--line-size) / 2) calc(0em - var(--margin-block) - var(--border-width));
+			&::before {
+				inset-block: auto calc(var(--margin-block) + var(--line-size) / 2 - var(--arrow-size));
+				clip-path: polygon(50% 0, 100% 100%, 0 100%);
+			}
+		}
+		&.left, &.right {
+			height: .1em;
+			inset-block: calc(50% - var(--line-size) / 2);
+			&::before {
+				inset-block: 50%;
+				translate: 0 -50%;
+			}
+
+		}
+		&.left {
+			inset-inline: calc(0em - var(--margin-inline) - var(--border-width)) calc(50% - var(--line-size) / 2);
+			&::before {
+				inset-inline: calc(var(--margin-inline) + var(--line-size) / 2 - var(--arrow-size)) auto;
+				clip-path: polygon(0 0, 100% 50%, 0 100%);
+			}
+		}
+		&.right {
+			inset-inline: calc(50% - var(--line-size) / 2) calc(0em - var(--margin-inline) - var(--border-width));
+			&::before {
+				inset-inline: auto calc(var(--margin-inline) + var(--line-size) / 2 - var(--arrow-size));
+				clip-path: polygon(0 50%, 100% 0, 100% 100%);
+			}
+		}
+	}
+}

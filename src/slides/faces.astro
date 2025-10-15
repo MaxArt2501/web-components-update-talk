@@ -1,0 +1,249 @@
+---
+import Code from "../components/Code.astro";
+---
+
+<p-slide class="justify-evenly">
+	<p class="center">Native elements can do <em>a lot</em> more</p>
+	<div class="gap-05 fieldset" aria-label="Search">
+		<p-fragment class="cursor"><p-fragment index="1"></p-fragment></p-fragment>
+		Name
+		<div class="input">Robin</div>
+		<div class="button">Submit</div>
+	</div>
+	<code p-fragment="1" class="center">GET /search?name=Robin</code>
+</p-slide>
+<style lang="scss">
+	.fieldset {
+		border: .1em solid #aaa;
+		border-radius: .5em;
+		padding: .5em;
+		width: 10em;
+		align-self: center;
+		display: flex;
+		flex-direction: column;
+		gap: .5em;
+		position: relative;
+		--cursor-duration: 1s;
+
+		&::before {
+			content: attr(aria-label);
+			font-size: 75%;
+			background: white;
+			margin-block: -1.4em -.5em;
+			align-self: start;
+			box-shadow: 0 0 0 .2em white;
+		}
+	}
+	.input {
+		display: flex;
+		align-items: center;
+		border: .1em solid #444;
+		padding: .25em .5em;
+		border-radius: .2em;
+		font-size: 80%;
+		transition: box-shadow 0s calc(var(--cursor-duration) * 1);
+
+		[aria-hidden='false'] ~ & {
+			box-shadow: 0 0 0 .1em white, 0 0 0 .2em blue;
+			&::after { content: '|'; }
+		}
+		[aria-hidden='false']:has([aria-hidden='false']) ~ & {
+			box-shadow: none;
+			&::after { content: ''; }
+		}
+	}
+	.button {
+		border-radius: .2em;
+		background-color: blue;
+		color: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 5em;
+		height: 1.5em;
+		font-size: 80%;
+	}
+	.cursor {
+		background: url(/img/cursor-default.svg);
+		width: 1em;
+		aspect-ratio: 17 / 22;
+		position: absolute;
+		inset: 0 auto auto 0;
+		animation: 1 forwards;
+		animation-duration: var(--cursor-duration), calc(var(--cursor-duration) * .2);
+		animation-delay: 0s, var(--cursor-duration);
+		&[aria-hidden='false'] {
+			animation-name: cursor-form-1, cursor-click-1;
+		}
+		&:has([aria-hidden='false']) {
+			animation-name: cursor-form-2, cursor-click-2;
+		}
+	}
+	@keyframes cursor-form-1 {
+		0% { inset: 0 auto auto 0; }
+		100% { inset: 1em auto auto 1.5em; }
+	}
+	@keyframes cursor-form-2 {
+		0% { inset: 1em auto auto 1.5em; }
+		100% { inset: 4.5em auto auto 2em; }
+	}
+	@keyframes cursor-click-1 {
+		0%, 100% { scale: 1; }
+		10%, 90% { scale: .8; }
+	}
+	@keyframes cursor-click-2 {
+		0%, 100% { scale: 1; }
+		10%, 90% { scale: .8; }
+	}
+	code[p-fragment] {
+		transition-delay: 1s;
+	}
+</style>
+<p-slide class="justify-around">
+	<hgroup>
+		<h3 class="h4">Web Components can <strong>NOT*</strong> extend native elements</h3>
+	</hgroup>
+	<Code code={`const MyInput extends {#highlight{HTMLInputElement}#} {
+  // ...
+}
+{#insert{
+customElements.define('my-input', MyInput{#2;reveal{, { extends: {#2;highlight{'input'}#} }}#});
+}#}`} class="s05 self-center"/>
+		<Code lang="html" code={`<form>
+  <input type="text"{#4;reveal{ is={#4;highlight{"my-input"}#}}#}>
+</form>`} p-fragment class="s05 self-center"/>
+	<p-fragment flex class="gap-05 self-center s1.5 relative">
+		*
+		<img class="browser-logo" src="/img/chrome.svg" alt="Chrome">
+		<img class="browser-logo" src="/img/firefox.svg" alt="Firefox">
+		<img class="browser-logo" src="/img/safari.svg" alt="Safari">
+		<p-fragment class="big-x" style="width: 2em; inset: -.2em -.5em auto auto"></p-fragment>
+	</p-fragment>
+</p-slide>
+<p-slide class="justify-evenly">
+	<hgroup>
+		<h3 class="h4">Web Components can be <strong>FACEs</strong></h3>
+	</hgroup>
+	<p p-fragment class="center">
+		<strong>F</strong>orm <strong>A</strong>ssociated <strong>C</strong>ustom <strong>E</strong>lements
+	</p>
+	<Code code={`class DateRange extends HTMLElement {
+{#insert{  static {#highlight{formAssociated}#} = true;
+}#}{#insert{
+  #internals = this.{#highlight{attachInternals}#}();
+}#}}`} class="s05 self-center" p-fragment/>
+</p-slide>
+<p-slide>
+	<div class="self-center relative s05">
+		<Code code={`class ElementInternals {
+  {#0;highlight{form}#}: HTMLFormElement | null;
+  {#0;highlight{willValidate}#}: boolean;
+  {#0;highlight{validity}#}: ValidityState;
+  {#0;highlight{validationMessage}#}: string;
+  {#0;highlight{labels}#}: NodeList<HTMLLabelElement>;
+
+  {#0;highlight{checkValidity}#}(): boolean;
+  {#0;highlight{reportValidity}#}(): boolean;
+
+  {#3;highlight blue{setFormValue}#}(value: string | File | FormData, state?: string | File | FormData): void;
+  {#4;highlight blue{setValidity}#}(validity: ValidityState, message: string, anchor?: HTMLElement): void;
+  ...
+}`}/>
+    <Code code={`class MyInput extends HTMLElement {
+  get {#2;highlight{form}#}() {
+    return this.#internals.{#2;highlight{form}#};
+  }
+  {#2;highlight{checkValidity}#}() {
+    return this.#internals.{#2;highlight{checkValidity}#}();
+  }
+}`} p-fragment="1" style="position: absolute; inset: .5em .5em auto auto; border-radius: 0; outline: .25em solid white"/>
+	</div>
+</p-slide>
+<p-slide class="justify-evenly">
+	<h4 class="center">New lifecycle methods</h4>
+	<div class="flowchart self-center s05" style="--columns: 3; --fragment-duration: 0s">
+		<div class="none"></div>
+		<div class="start">
+			<code class="bold">formAssociatedCallback</code>
+			<div class="arrow bottom" p-fragment="1"></div>
+			<div class="arrow right" p-fragment="0"></div>
+		</div>
+		<div class="none">
+			<div class="arrow left" p-fragment="0"></div>
+			<div class="arrow bottom" p-fragment="0"></div>
+		</div>
+
+		<div class="none" p-fragment="3">
+			<div class="arrow bottom"></div>
+			<div class="arrow right"></div>
+		</div>
+		<div class="none" p-fragment="1">
+			<div class="arrow top"></div>
+			<div class="arrow bottom"></div>
+			<div class="arrow left in" p-fragment="3"></div>
+		</div>
+		<div class="none" p-fragment="0">
+			<div class="arrow top"></div>
+			<div class="arrow bottom"></div>
+		</div>
+
+		<div class="none" p-fragment="3">
+			<div class="arrow top"></div>
+			<div class="arrow bottom"></div>
+		</div>
+		<div class="preparation" p-fragment="1">
+			<div class="arrow top in"></div>
+			<div class="arrow bottom" p-fragment="3"></div>
+			<div class="arrow right" p-fragment="2"></div>
+			<code>handleChange</code>
+		</div>
+		<div class="input-output" p-fragment="0">
+			<div class="arrow top in"></div>
+			<div class="arrow bottom in" p-fragment="6"></div>
+			<div class="arrow left in" p-fragment="2"></div>
+			<code>setFormValue()</code>
+			<code>setValidity()</code>
+		</div>
+
+		<div class="none" p-fragment="3">
+			<div class="arrow top"></div>
+			<div class="arrow right"></div>
+		</div>
+		<div class="none" p-fragment="3">
+			<div class="arrow top"></div>
+			<div class="arrow bottom" p-fragment="4"></div>
+			<div class="arrow left"></div>
+		</div>
+		<div class="none" p-fragment="6">
+			<div class="arrow top"></div>
+			<div class="arrow bottom"></div>
+		</div>
+
+		<div class="process" p-fragment="4">
+			<div class="arrow right in"></div>
+			<code class="bold">formDisabledCallback</code>
+		</div>
+		<div class="none" p-fragment="4">
+			<div class="arrow top"></div>
+			<div class="arrow bottom" p-fragment="7"></div>
+			<div class="arrow left"></div>
+			<div class="arrow right" p-fragment="5"></div>
+		</div>
+		<div class="process" p-fragment="5">
+			<div class="arrow top" p-fragment="6"></div>
+			<div class="arrow left in"></div>
+			<code class="bold">formResetCallback</code>
+		</div>
+
+		<div class="none"></div>
+		<div class="end" p-fragment="7">
+			<code>disconnectedCallback</code>
+			<div class="arrow top in"></div>
+		</div>
+	</div>
+</p-slide>
+<p-slide>
+	<hgroup class="self-center">
+		<h2><strong><a href="../example" target="_blank">Example</a> time!</strong></h2>
+	</hgroup>
+</p-slide>
