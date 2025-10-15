@@ -1,0 +1,114 @@
+---
+import Code from "../components/Code.astro";
+---
+<p-slide class="center">
+	<p><strong>Form participation</strong> is great</p>
+	<p-fragment class="h3">but what else?</p-fragment>
+</p-slide>
+<p-slide class="justify-around">
+	<hgroup>
+		<h3><strong>Accessibility</strong></h3>
+		<small>You're doing it wrong</small>
+	</hgroup>
+	<div flex class="self-center align-center gap-1">
+		<Code lang="html" code={`<chart-gauge value="42"{#insert{  role="{#3;shrink{meter}#}{#3;reveal{{#5;strike{progressbar}#}}#}{#5;reveal{meter}#}"}#}{#insert{  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-valuenow="42"}#}/>`} p-fragment="0" class="s05"/>
+		<div class="gauge" p-fragment="0"></div>
+	</div>
+	<Code code={`class Gauge extends HTMLElement {
+  constructor() {
+    super();
+    this.setAttribute('role', 'meter');
+  }
+}`} p-fragment="4" class="s05 self-center"/>
+</p-slide>
+<style lang="scss">
+	.gauge {
+		width: 6em;
+		aspect-ratio: 2;
+		background: radial-gradient(circle at 50% 100%, var(--slide-bg, white) 25%, transparent 0), conic-gradient(from 90deg at 50% 100%, red .71turn, gray 0deg);
+		border-radius: 100vmax 100vmax 0 0;
+	}
+</style>
+<p-slide>
+	<Code code={`{#strike{this.setAttribute('role', 'meter');}#}
+{#insert{this.#internals.role = 'meter';
+}#}{#insert{this.#internals.ariaValueMin = '0';
+this.#internals.ariaValueMax = '100';
+this.#internals.ariaValueNow = String(this.value);}#}`} class="s08 self-center"/>
+</p-slide>
+<p-slide>
+	<div class="stack items-center justify-center bold">
+		<div grid="4" class="s05">
+			<code>ariaAtomic</code>
+			<code>ariaAutoComplete</code>
+			<code>ariaBusy</code>
+			<code>ariaChecked</code>
+			<code>ariaColCount</code>
+			<code>ariaColIndex</code>
+			<code>ariaColSpan</code>
+			<code>ariaCurrent</code>
+			<code>ariaDescription</code>
+			<code>ariaDisabled</code>
+			<code>ariaExpanded</code>
+			<code>ariaHasPopup</code>
+			<code>ariaHidden</code>
+			<code>ariaInvalid</code>
+			<code>ariaKeyShortcuts</code>
+			<code>ariaLabel</code>
+			<code>ariaLevel</code>
+			<code>ariaLive</code>
+			<code>ariaModal</code>
+			<code>ariaMultiLine</code>
+			<code>ariaMultiSelectable</code>
+			<code>ariaOrientation</code>
+			<code>ariaPlaceholder</code>
+			<code>ariaPosInSet</code>
+			<code>ariaPressed</code>
+			<code>ariaReadOnly</code>
+			<code>ariaRequired</code>
+			<code>ariaRoleDescription</code>
+			<code>ariaRowCount</code>
+			<code>ariaRowIndex</code>
+			<code>ariaRowSpan</code>
+			<code>ariaSelected</code>
+			<code>ariaSetSize</code>
+			<code>ariaSort</code>
+			<code>ariaValueMax</code>
+			<code>ariaValueMin</code>
+			<code>ariaValueNow</code>
+			<code>ariaValueText</code>
+			<code>role</code>
+		</div>
+		<pre p-fragment style="background: #ffbbbb; padding: 0.4em; border: .1em solid; border-radius: .6em; box-shadow: 0 0 0 100vmax #0006;">aria-errormessage
+<p-fragment index="3" effect='highlight'>aria-activedescendant</p-fragment>
+<p-fragment index="2" effect='highlight'>aria-controls</p-fragment>
+<p-fragment index="1" effect='highlight'>aria-describedby</p-fragment>
+aria-details
+aria-flowto
+<p-fragment index="1" effect='highlight'>aria-labelledby</p-fragment>
+aria-owns</pre>
+	</div>
+</p-slide>
+<p-slide class="justify-around">
+	<hgroup>
+		<h3><strong>Custom</strong> states</h3>
+		<small p-fragment>Or custom pseudo-classes</small>
+	</hgroup>
+	<p-fragment flex="column" class="center">All custom elements:
+		<code>:defined</code>
+	</p-fragment>
+	<p-fragment flex="column" class="center">Form-associated custom elements:
+		<code>:enabled</code>
+		<code>:disabled</code>
+		<code>:valid</code>
+		<code>:invalid</code>
+	</p-fragment>
+</p-slide>
+<p-slide class="gap-1">
+	<Code code="this.#internals.states.add('{#1;highlight{checked}#}');" class="self-center"/>
+	<Code lang="css" code={`my-switch:state({#1;highlight{checked}#}) + .notes {
+  display: block;
+}`} class="self-center" p-fragment/>
+</p-slide>
