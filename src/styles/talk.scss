@@ -150,7 +150,7 @@ text {
 
 @mixin effect($name, $props, $duration-factor: 1) {
   [effect~="#{$name}"] {
-    opacity:31;
+    opacity: 1;
 		transition-duration: calc(var(--fragment-duration) * #{$duration-factor});
 		transition-property: $props;
     @content(null);
@@ -165,12 +165,18 @@ text {
 
 @include effect(zoom, transform) using ($hidden) {
   @if $hidden == true {
-    transform: scale(0);
+    transform: scale(var(--initial-zoom, 0));
   } @else if $hidden == false {
     transform: scale(1);
   } @else {
     display: block;
   }
+}
+[effect~='zoom']:where([effect~='appear']) {
+	transition-property: transform, opacity;
+	&:where([aria-hidden='true']) {
+		opacity: 0;
+	}
 }
 
 @include effect(reveal, #{max-width, padding-inline}) using ($hidden) {
@@ -343,6 +349,22 @@ text {
       height: 0;
     }
   }
+}
+
+@include effect(from, translate) using ($hidden) {
+  @if $hidden == true {
+		translate: var(--from, 0 0);
+	} @else if $hidden == false {
+		translate: var(--to, 0 0);
+  } @else {
+		position: relative;
+	}
+}
+[effect~='from'] {
+	&[effect~='top'] { --from: 0 -100cqh; }
+	&[effect~='right'] { --from: 100cqw 0; }
+	&[effect~='bottom'] { --from: 100cqh; }
+	&[effect~='left'] { --from: -100cqw 0; }
 }
 
 g.shiki {
