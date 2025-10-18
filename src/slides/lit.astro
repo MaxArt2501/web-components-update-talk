@@ -1,0 +1,364 @@
+---
+import Code from "../components/Code.astro";
+---
+<p-slide>
+	<hgroup>
+		<h3>Attribute reflection</h3>
+	</hgroup>
+</p-slide>
+<p-slide>
+	<p class="center bold">Strings</p>
+	<Code code={`class Card extends HTMLElement {
+{#insert{  static observedAttributes = ['variant'];
+}#}{#1;insert{
+{#2;insert{  get variant() {
+{#4;collapse{    return this.getAttribute('variant');
+}#}{#4;insert{    const variant = this.getAttribute('variant');
+    return {#4;highlight red{ALLOWED_VARIANTS.includes(variant)}#}
+      {#4;highlight red{? variant : 'default'}#};
+}#}  }
+  set variant(variant) {
+{#4;insert{    {#4;highlight red{if (!ALLOWED_VARIANTS.includes(variant)) return;}#}
+}#}{#3;insert{    {#3;highlight{if (this.variant !== variant) {}#}
+}#}    {#3;reveal{  }#}this.setAttribute('variant', variant);
+{#3;insert{    {#3;highlight{}}#}
+}#}  }
+}#}  attributeChangedCallback(name, oldValue, value) {
+    if (name === 'variant') {
+      this.variant = value;
+    }
+  }
+}#}}`} class="s05 self-center"/>
+</p-slide>
+<p-slide>
+	<p class="center bold">Booleans</p>
+	<Code code={`class Card extends HTMLElement {
+  static observedAttributes = ['variant'{#reveal{, 'collapsible'}#}];
+{#insert{
+  get collapsible() {
+    return this.{#2;highlight{hasAttribute}#}('collapsible');
+  }
+  set collapsible(collapsible) {
+    this.{#2;highlight{toggleAttribute}#}('collapsible', collapsible);
+  }
+}#}}`} class="s05 self-center"/>
+</p-slide>
+<p-slide>
+	<p class="center bold">Numbers et al.</p>
+	<Code code={`{#3;insert{const {#3;highlight red{isValidDelay}#} = delay => Number.isFinite(delay) && delay >= 0;
+
+}#}class Tooltip extends HTMLElement {
+  static observedAttributes = ['delay'];
+{#insert{
+  get delay() {
+    const delay = {#1;highlight{Number}#}(this.getAttribute('delay'));
+    return {#3;reveal{{#3;highlight red{isValidDelay}#}(delay) ? }#}delay{#3;reveal{ : 0}#};
+  }
+  set delay(delay) {
+{#3;insert{    if (!{#3;highlight red{isValidDelay}#}(Number(delay))) return;
+}#}    if (this.getAttribute('delay') !== {#2;highlight blue{String}#}(delay)) {
+      this.setAttribute('delay', delay);
+    }
+  }
+}#}}`} class="s05 self-center"/>
+</p-slide>
+<p-slide>
+	<hgroup>
+		<h3>View updates</h3>
+	</hgroup>
+</p-slide>
+<p-slide>
+	<div class="alert" aria-label="Example of an alert element">
+		<header p-fragment="1" effect="insert">Please take action</header>
+		Something has gone wrong: check the log
+		<button type="button" p-fragment="5"></button>
+	</div>
+	<Code code={`class Alert extends HTMLElement {
+{#insert{  set alertTitle(title) {
+    this.setAttribute('alert-title', title);
+{#1;insert{		this.shadowRoot.querySelector('header').textContent = title;
+}#}  }
+}#}{#insert{
+  set closable(closable) {
+    this.toggleAttribute('closable', closable);
+{#3;insert{		let closeBtn = this.shadowRoot.querySelector('button');
+}#}{#4;insert{		if (closable && !closeBtn) {
+			{#5;highlight green{closeBtn = document.createElement('button');}#}
+			{#5;highlight green{closeBtn.type = 'button';}#}
+			{#5;highlight green{this.shadowRoot.append(closeBtn);}#}
+		} else if (!closable) {
+		  {#6;highlight red{closeBtn?.remove();}#}
+		}
+}#}  }
+}#}}`} class="s05 self-center"/>
+</p-slide>
+<style lang="scss">
+	.alert {
+		border: .1em solid;
+		background-color: rgb(255, 155, 41);
+		border-radius: .25em;
+		padding: .5em;
+		position: relative;
+		font-size: 50%;
+		align-self: flex-end;
+		margin-bottom: -1em;
+
+		header {
+			font-weight: bold;
+			font-size: 125%;
+		}
+		button {
+			border: none;
+			position: absolute;
+			inset: .5em .5em auto auto;
+			width: 1em;
+			height: 1em;
+			font-size: inherit;
+			color: inherit;
+			background: currentColor;
+			clip-path: polygon(10% 0,50% 40%,90% 0,100% 10%,60% 50%,100% 90%,90% 100%,50% 60%,10% 100%,0 90%,40% 50%,0 10%);
+		}
+	}
+</style>
+<p-slide>
+	<div class="tabs" aria-label="Example of a tab group">
+		<ul>
+			<li>General</li>
+			<li>Profile</li>
+			<li><p-fragment index="5" effect="shrink">Privacy</p-fragment><p-fragment index="5" effect="reveal">Permissions</p-fragment></li>
+			<li p-fragment="3">Role</li>
+		</ul>
+		<div class="panels"></div>
+	</div>
+		<Code code={`class TabGroup extends HTMLElement {
+{#1;insert{	get tabs() {
+    this.shadowRoot.querySelector('slot')
+      .assignedElements()
+      .filter(el => el.localName === 'my-tab');
+  }
+}#}{#0;insert{  constructor() {
+    ...
+    this.shadowRoot.querySelector('slot')
+      .addEventListener('slotchange', this.#updateTabs);
+  }
+}#}{#2;insert{
+  #updateTabs = () => {
+    const tabs = this.tabs;
+    const wrapper = this.shadowRoot.querySelector('div');
+{#3;insert{    for (let index = wrapper.children.length; index < tabs.length; index++) {
+      {#3;highlight green{wrapper.append(document.createElement('button'));}#}
+    }
+}#}{#4;insert{    while (wrapper.children.length > tabs.length) {
+      {#4;highlight red{wrapper.lastElementChild.remove();}#}
+    }
+}#}{#5;insert{    tabs.forEach((tab, index) => {
+      {#5;highlight{wrapper.children[index].textContent = tab.label;}#}
+    });
+}#}  }
+}#}}`} class="s05 self-center"/>
+</p-slide>
+<style lang="scss">
+	.tabs {
+		font-size: 50%;
+		align-self: flex-end;
+		margin-bottom: -1em;
+		position: relative;
+
+		ul {
+			display: flex;
+			list-style: none;
+			align-self: center;
+			margin: 0;
+			padding: 0;
+		}
+		li {
+			padding: .25em .5em;
+			border: .1em solid;
+			background-color: #fbb;
+			border-radius: .25em .25em 0 0;
+			margin-bottom: -.1em;
+			margin-inline-start: -.1em;
+			&:first-child {
+				margin-inline-start: 0;
+				border-bottom: none;
+				background-color: ivory;
+				box-shadow: inset 0 -.15em ivory;
+			}
+		}
+		.panels {
+			border: .1em solid;
+			border-bottom: none;
+			border-radius: 0 .25em 0 0;
+			height: 1em;
+			width: 20em;
+			background-color: ivory;
+		}
+	}
+</style>
+<p-slide>
+	<div class="h2 bold center">You don't have to <strong>suffer</strong> this much</div>
+</p-slide>
+<p-slide>
+	<img src="/img/lit.svg" alt="Logo of Lit" class="full-media">
+</p-slide>
+<p-slide>
+	<div class="flowchart self-center s05" style="--columns: 3; --fragment-duration: 0s">
+		<div class="start">
+			<code>constructor</code>
+			<div class="arrow bottom" p-fragment="0"></div>
+		</div>
+		<div class="process lit bold" p-fragment="1">
+			<code>@property</code>
+			<div class="arrow bottom" p-fragment="2"></div>
+		</div>
+		<div class="process" p-fragment="0">
+			<code>attributeChangedCallback</code>
+			<div class="arrow bottom" p-fragment="2"></div>
+		</div>
+
+		<div class="process" p-fragment="0">
+			<div class="arrow top in"></div>
+			<code>connectedCallback</code>
+			<div class="arrow right" p-fragment="2"></div>
+		</div>
+		<div class="process lit" p-fragment="2">
+			<div class="arrow top in"></div>
+			<div class="arrow left in"></div>
+			<div class="arrow right in"></div>
+			<code>hasChanged</code>
+			<div class="arrow bottom" p-fragment="3"></div>
+		</div>
+		<div class="none" p-fragment="2">
+			<div class="arrow top"></div>
+			<div class="arrow left"></div>
+		</div>
+
+		<div class="none"></div>
+		<div class="process method" p-fragment="3">
+			<div class="arrow top in"></div>
+			<code>requestUpdate</code>
+			<div class="arrow bottom" p-fragment="4"></div>
+		</div>
+		<div class="none"></div>
+
+		<div class="none" p-fragment="5">
+			<div class="arrow right"></div>
+			<div class="arrow bottom"></div>
+		</div>
+		<div class="process lit bold" p-fragment="4">
+			<div class="arrow top in"></div>
+			<code>shouldUpdate</code>
+			<div class="arrow left" p-fragment="5"></div>
+			<div class="arrow bottom" p-fragment="6"></div>
+		</div>
+		<div class="none"></div>
+
+		<div class="none" p-fragment="5">
+			<div class="arrow top"></div>
+			<div class="arrow bottom"></div>
+		</div>
+		<div class="process lit bold" p-fragment="6">
+			<div class="arrow top in"></div>
+			<code>willUpdate</code>
+			<div class="arrow bottom" p-fragment="7"></div>
+		</div>
+		<div class="none"></div>
+
+		<div class="none" p-fragment="5">
+			<div class="arrow top"></div>
+			<div class="arrow bottom"></div>
+		</div>
+		<div class="process lit" p-fragment="7">
+			<div class="arrow top in"></div>
+			<code>update</code>
+			<div class="arrow right" p-fragment="8"></div>
+			<div class="arrow bottom" p-fragment="9"></div>
+		</div>
+		<div class="process render" p-fragment="8">
+			<div class="arrow left in"></div>
+			<code>render</code>
+			<div class="arrow bottom" p-fragment="9"></div>
+		</div>
+
+		<div class="none" p-fragment="5">
+			<div class="arrow top"></div>
+			<div class="arrow bottom"></div>
+		</div>
+		<div class="none" p-fragment="9">
+			<div class="arrow top"></div>
+			<div class="arrow right in"></div>
+			<div class="arrow bottom"></div>
+		</div>
+		<div class="none" p-fragment="9">
+			<div class="arrow top"></div>
+			<div class="arrow left"></div>
+			<div class="arrow bottom" p-fragment="10"></div>
+		</div>
+		
+		<div class="end" p-fragment="5">
+			<div class="arrow top in"></div>
+			<span>End update</span>
+			<div class="arrow right in" p-fragment="12"></div>
+		</div>
+		<div class="process lit bold" p-fragment="9">
+			<div class="arrow top in"></div>
+			<code>updated</code>
+			<div class="arrow left" p-fragment="12"></div>
+			<div class="arrow right in" p-fragment="11"></div>
+		</div>
+		<div class="process lit" p-fragment="10">
+			<div class="arrow top in"></div>
+			<code>firstUpdated</code>
+			<div class="arrow left" p-fragment="11"></div>
+		</div>
+	</div>
+</p-slide>
+<style lang="scss">
+	.lit {
+		background: palegreen;
+	}
+	.method {
+		background: #ddd;
+	}
+	.render {
+		background: rgb(255, 101, 242);
+		font-weight: bold;
+	}
+</style>
+<p-slide class="justify-evenly">
+	<Code code={`{#0;insert{import { {#4;reveal{css, }#}{#1;reveal{html, }#}LitElement{#2;reveal{, repeat}#} } from 'lit';
+
+}#}class TabGroup extends {#0;highlight blue{{#0;shrink{HTML}#}{#0;reveal{Lit}#}Element}#} {
+{#4;insert{  static styles = css${'`'}
+		:host { display: flex; }
+	${'`'};
+
+}#}{#1;insert{  {#1;highlight{render}#}() {
+    return {#1.5;highlight{html}#}${'`'}<div>{#2;reveal{${'${'}{#2;highlight{repeat}#}(}#}
+{#2;insert{			this.tabs,
+			(tab) => html${'`'}<button
+				aria-selected="${'${'}index === this.selectedIndex}"
+				aria-controls="${'${'}tab.id}"
+{#3;insert{ 				{#3;highlight{@click}#}=${'${'}this.#activateTab}
+}#}			>${'${'}tab.label}</button>${'`'}
+}#}		{#2;reveal{)}}#}</div>
+		<slot></slot>${'`'};
+  }
+}#}}`} class="s05 self-center"/>
+</p-slide>
+<p-slide class="justify-evenly">
+	<Code code={`class Card extends LitElement {
+{#insert{  @property({ {#highlight{reflect: true}#}, useDefault: true }) variant = 'default';
+}#}{#insert{  @property({ reflect: true, {#highlight{type: Boolean}#} }) collapsible = false;
+}#}{#insert{
+  shouldUpdate(changes) {
+    if (changes.has('variant') && !ALLOWED_VARIANTS.includes(variant)) { 
+      this.variant = changes.get('variant');
+      changes.delete('variant');
+    }
+  }
+}#}}`} class="s05 self-center"/>
+	<Code code={`class Tooltip extends LitElement {
+{#insert{	@property({ reflect: true, useDefault: true, {#highlight{type: Number}#} }) delay = 0;
+}#}}`} p-fragment class="s05 self-center"/>
+</p-slide>

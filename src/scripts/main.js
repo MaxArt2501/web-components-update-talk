@@ -123,7 +123,8 @@ deck.addEventListener('p-slides.slidechange', ({ detail: { slide } }) => {
 	});
 });
 
-deck.addEventListener('p-slides.fragmenttoggle', () => {
+deck.addEventListener('p-slides.fragmenttoggle', (event) => {
+	event.detail.fragments.forEach(fragment => fragment.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 	toggleNavButtons();
 	updateProgressBar();
 });

@@ -265,7 +265,10 @@ text {
 		--highlight-color: #faa;
 	}
 	&[effect~='blue'] {
-		--highlight-color: cyan;
+		--highlight-color: turquoise;
+	}
+	&[effect~='green'] {
+		--highlight-color: palegreen;
 	}
 }
 @include effect(falling, transform, 2) using ($hidden) {
@@ -400,12 +403,11 @@ hgroup {
 	> p {
 		font-size: 150%;
 	}
-
-	strong {
-		background: var(--wc-bg);
-		background-clip: text;
-		color: transparent;
-	}
+}
+:is(hgroup, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) strong {
+	background: var(--wc-bg);
+	background-clip: text;
+	color: transparent;
 }
 
 .browser-logo {
