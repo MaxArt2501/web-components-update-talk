@@ -145,5 +145,5 @@ uiButtons.fullscreenMode[0].addEventListener('click', () => {
 	}
 });
 
-PresentationDeckElement.styles = new URL('../../css/deck.css', import.meta.url).toString();
+PresentationDeckElement.styles = '../css/deck.css';
 registerElements();
