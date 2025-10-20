@@ -1,0 +1,44 @@
+---
+import Code from '../components/Code.astro';
+import Qrcode from './qrcode.astro';
+---
+
+<p-slide>
+	<h2 class="h1 center nowrap">
+		<strong effect="reveal">That's all, folks!</strong>
+	</h2>
+	<div class="h1 self-center waving-hand">👋</div>
+</p-slide>
+<Qrcode />
+<p-slide>
+	<Code code={`for (const question of questions) {
+  console.log(
+    await answer(question)
+  );
+}`} class="self-center"
+	/>
+</p-slide>
+<style lang="scss">
+	p-slide[aria-hidden='false'] .waving-hand {
+		animation: waving var(--fragment-duration, 300ms) var(--fragment-duration, 300ms) 3 forwards;
+		transform-origin: 70% 80%;
+	}
+
+	@keyframes waving {
+		0% {
+			transform: rotate(-15deg);
+		}
+
+		25% {
+			transform: rotate(0deg);
+		}
+
+		75% {
+			transform: rotate(-30deg);
+		}
+
+		100% {
+			transform: rotate(-15deg);
+		}
+	}
+</style>

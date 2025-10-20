@@ -356,6 +356,7 @@ import Code from "../components/Code.astro";
       this.variant = changes.get('variant');
       changes.delete('variant');
     }
+		return changes.size > 0;
   }
 }#}}`} class="s05 self-center"/>
 	<Code code={`class Tooltip extends LitElement {
