@@ -1,10 +1,11 @@
 ---
+import QrCode from "../components/QrCode.astro";
+
 const presentation = Astro.url.pathname.replace(/^\/+|\/+$/g, '').split('/').at(-1);
 const href = `https://maxart2501.github.io/web-components-update-talk/${presentation}/`;
-const imgSrc = `../img/qr-slides-${presentation}.svg`;
 ---
 <p-slide>
-	<img src={imgSrc} alt="QR Code to the slides" effect="falling" style="flex-grow: 1; min-height: 0; --from: -80cqh">
+	<QrCode content={href} effect="falling" style="--from: -80cqh" aria-label="QR Code to the slides"/>
 	<a href={href} class="center" effect="falling" style="--from: 25cqh">
 		{href.slice(8, -1)}
 	</a>

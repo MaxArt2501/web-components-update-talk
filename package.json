@@ -18,7 +18,8 @@
 	"dependencies": {
 		"astro": "^5.12.9",
 		"lit": "^3.3.1",
-		"p-slides": "^1.4.2"
+		"p-slides": "^1.4.2",
+		"uqr": "^0.1.2"
 	},
 	"devDependencies": {
 		"sass": "^1.89.2",
