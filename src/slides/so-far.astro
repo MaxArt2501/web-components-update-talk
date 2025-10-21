@@ -250,7 +250,7 @@ contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`
 		<h3 class="h4">Web Components can <strong>compose events</strong></h3>
 	</hgroup>
 	<div flex class="gap-1 self-center">
-		<section class="node-list">
+		<section class="node-list" p-fragment>
 			<header>
 				<div>bubbles</div>
 				<div>composed</div>
@@ -261,11 +261,11 @@ contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`
 			<div class="node host">my-card</div>
 			<div class="node">div</div>
 			<div class="node">body</div>
-			<p-fragment class="event bubbles composed">
+			<div class="event bubbles composed">
 				<p-fragment class="event-example">click</p-fragment>
-			</p-fragment>
+			</div>
 		</section>
-		<section class="node-list">
+		<section class="node-list" p-fragment>
 			<header>
 				<div>bubbles</div>
 				<div>-</div>
@@ -276,11 +276,11 @@ contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`
 			<div class="node host">my-card</div>
 			<div class="node">div</div>
 			<div class="node">body</div>
-			<p-fragment class="event bubbles">
+			<div class="event bubbles">
 				<p-fragment class="event-example">change</p-fragment>
-			</p-fragment>
+			</div>
 		</section>
-		<section class="node-list">
+		<section class="node-list" p-fragment>
 			<header>
 				<div>-</div>
 				<div>composed</div>
@@ -291,11 +291,11 @@ contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`
 			<div class="node host">my-card</div>
 			<div class="node">div</div>
 			<div class="node">body</div>
-			<p-fragment class="event composed">
+			<div class="event composed">
 				<p-fragment class="event-example">focus</p-fragment>
-			</p-fragment>
+			</div>
 		</section>
-		<section class="node-list">
+		<section class="node-list" p-fragment>
 			<header>
 				<div>-</div>
 				<div>-</div>
@@ -306,9 +306,9 @@ contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`
 			<div class="node host">my-card</div>
 			<div class="node">div</div>
 			<div class="node">body</div>
-			<p-fragment class="event">
+			<div class="event">
 				<p-fragment class="event-example">mouseenter</p-fragment>
-			</p-fragment>
+			</div>
 		</section>
 	</div>
 </p-slide>
@@ -541,15 +541,15 @@ contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`
 
 		&.bubbles {
 			animation-duration: calc(var(--fragment-duration) * 6);
-			&[aria-hidden='false'] { animation-name: bubbles; }
+			[aria-hidden='false'] & { animation-name: bubbles; }
 		}
 		&.composed {
 			animation-duration: calc(var(--fragment-duration) * 6);
-			&[aria-hidden='false'] { animation-name: composed; }
+			[aria-hidden='false'] & { animation-name: composed; }
 		}
 		&.bubbles.composed {
 			animation-duration: calc(var(--fragment-duration) * 15);
-			&[aria-hidden='false'] { animation-name: bubbles-composed; }
+			[aria-hidden='false'] & { animation-name: bubbles-composed; }
 		}
 	}
 	.event-example {

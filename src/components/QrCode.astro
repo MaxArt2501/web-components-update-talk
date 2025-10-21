@@ -82,9 +82,8 @@ const variants = {
 	}
 } as const satisfies Record<string, ModuleTransformer>;
 type Variant = keyof typeof variants;
-
-const attrs = {
-	viewBox: `${-padding} ${-padding} ${size + padding * 2} ${size + padding * 2}`,
-};
 ---
-<svg {...attrs} set:html={await variants[variant](data)} {...attributes}></svg>
+<svg viewBox={`${-padding} ${-padding} ${size + padding * 2} ${size + padding * 2}`} {...attributes}>
+	<Fragment set:html={await variants[variant](data)}/>
+	<slot></slot>
+</svg>

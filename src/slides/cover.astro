@@ -1,13 +1,16 @@
 <p-slide class="cover justify-around">
   <hgroup>
-    <h1>Web Components</h1>
-    <p>Where are we at now?</p>
+    <h1 class="strike-out">Web Components</h1>
+    <p class="strike-out">Where are we at now?</p>
   </hgroup>
   <div flex class="justify-between align-center">
     <img src="../img/webcomponents.svg" h="5" alt="Web Components logo">
-    <p>
-      Ravenna, <time datetime="2025-10-29">2025-10-29</time>
-    </p>
+    <div flex="column" class="align-end">
+      <img src="../img/dev-romagna.svg" alt="Logo of DevRomagna meetup" h="3" flex>
+      <span class="strike-out">
+        Ravenna, <time datetime="2025-10-30">2025-10-30</time>
+      </span>
+    </div>
   </div>
 </p-slide>
 <p-slide grid="2" class="about-me">
@@ -54,6 +57,10 @@
   .cover {
     color: white;
     --slide-bg: var(--wc-bg);
+
+    img {
+      filter: drop-shadow(.03em 0.06em .1em black);
+    }
   }
   gfy-blob {
     height: 12em;
