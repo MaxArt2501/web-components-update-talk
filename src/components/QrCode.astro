@@ -13,7 +13,7 @@ interface Props extends Exclude<QrCodeGenerateOptions, 'border' | 'onEncoded'>, 
 
 const { content, padding = 4, variant = 'default', ecc, maskPattern, boostEcc, minVersion, maxVersion, invert, ...attributes } = Astro.props;
 
-const { data } = encode(content, {
+const { data, size, version } = encode(content, {
 	ecc,
 	maskPattern,
 	boostEcc,
@@ -22,7 +22,6 @@ const { data } = encode(content, {
 	invert,
 	border: 0
 });
-const size = data.length;
 
 type ModuleTransformer = (modules: boolean[][]) => string | Promise<string>;
 
@@ -64,7 +63,7 @@ const variants = {
   punches: async modules => {
 		const buffer = await crypto.subtle.digest('sha-1', new TextEncoder().encode(content));
 		const id = Buffer.from(buffer).toString('base64');
-		return `<defs><mask id="mask_${id}"><rect width="${modules.length}" height="${modules.length}" fill="#fff"/><path d="${modules.map((line, row) => {
+		return `<defs><mask id="mask_${id}"><rect width="${size}" height="${size}" fill="#fff"/><path d="${modules.map((line, row) => {
 			let currentModule = false;
 			let count = 0;
 			const segs = [];
@@ -78,12 +77,12 @@ const variants = {
 			}
 			if (count) segs.push(count);
 			return `M.5,${row + .5}${segs.map((length, index) => (index & 1 ? `m${length},0` : 'h0m1,0'.repeat(length))).join('')}`;
-		}).join('')}" stroke="#000" stroke-linecap="round"/></mask></defs><rect width="${modules.length}" height="${modules.length}" r="0.5" fill="currentColor" mask="url(#mask_${id})"/>`;
+		}).join('')}" stroke="#000" stroke-linecap="round"/></mask></defs><rect width="${size}" height="${size}" rx="1" fill="currentColor" mask="url(#mask_${id})"/>`;
 	}
 } as const satisfies Record<string, ModuleTransformer>;
 type Variant = keyof typeof variants;
 ---
-<svg viewBox={`${-padding} ${-padding} ${size + padding * 2} ${size + padding * 2}`} {...attributes}>
+<svg viewBox={`${-padding} ${-padding} ${size + padding * 2} ${size + padding * 2}`} data-version={version} {...attributes}>
 	<Fragment set:html={await variants[variant](data)}/>
 	<slot></slot>
 </svg>
