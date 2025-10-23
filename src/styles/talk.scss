@@ -108,43 +108,21 @@ text {
 	text-anchor: middle;
 	alignment-baseline: middle;
 }
-.git-tree {
-	line,
-	path:not(marker > path) {
-		stroke: #dd0031;
-		stroke-width: 10px;
-		stroke-linecap: round;
-	}
-	path:not(marker > path) {
-		stroke-width: 6px;
-		fill: none;
 
-		&.merge {
-			stroke-width: 1px;
-			marker-end: url(#arrow);
-			marker-mid: none;
-			stroke: #8e0022;
-		}
-		&.commits {
-			marker-end: url(#commit);
-			marker-mid: url(#commit);
-		}
-	}
-	:not(line) + text {
-		transform: rotate(-90deg);
-		text-anchor: end;
-		font-size: 3px;
-	}
-}
-
-:is(line, path, polyline, polygon).arrow {
+:is(line, path, polyline, polygon):is(.arrow, [effect~='arrow']) {
 	fill: none;
-	marker-end: url('#arrow-head');
 	&.double {
 		marker-start: url('#arrow-head');
 	}
 	&:not([stroke]) {
 		stroke: #000;
+	}
+	&:not([effect~='arrow']), &[aria-hidden='false'] {
+		marker-end: url('#arrow-head');
+	}
+	&[effect~='drawing'] {
+		transition-property: stroke-dasharray, marker-end;
+		transition-behavior: allow-discrete;
 	}
 }
 
@@ -359,6 +337,49 @@ hgroup {
 				inset-inline: auto calc(var(--margin-inline) + var(--line-size) / 2 - var(--arrow-size));
 				clip-path: polygon(0 50%, 100% 0, 100% 100%);
 			}
+		}
+	}
+}
+
+.alert {
+	border: .1em solid;
+	background-color: rgb(255, 155, 41);
+	border-radius: .25em;
+	padding: .5em;
+	position: relative;
+
+	header {
+		font-weight: bold;
+		font-size: 125%;
+	}
+}
+
+.browser-support {
+	display: inline-flex;
+	justify-content: center;
+	gap: .5em;
+	font-weight: bold;
+
+	> * {
+		width: 1.5em;
+		height: 1.5em;
+		background-size: contain;
+		background-repeat: no-repeat;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		-webkit-text-stroke: #fff .05em;
+		paint-order: stroke fill;
+		line-height: 1;
+
+		&:empty::before {
+			content: '🗙';
+		}
+	}
+
+	@each $browser in chrome firefox safari {
+		.#{$browser} {
+			background-image: url(../img/#{$browser}.svg);
 		}
 	}
 }

@@ -99,6 +99,7 @@
 			background: linear-gradient(to bottom, transparent calc(.5lh - .1em), red 0 calc(.5lh + .1em), transparent 0) 0 / auto 1lh;
 			transition: inherit;
 			transition-property: inset-inline-end;
+			z-index: 1;
 		}
 	}
 }
@@ -228,6 +229,6 @@
 [effect~='from'] {
 	&[effect~='top'] { --from: 0 -100cqh; }
 	&[effect~='right'] { --from: 100cqw 0; }
-	&[effect~='bottom'] { --from: 100cqh; }
+	&[effect~='bottom'] { --from: 0 100cqh; }
 	&[effect~='left'] { --from: -100cqw 0; }
 }

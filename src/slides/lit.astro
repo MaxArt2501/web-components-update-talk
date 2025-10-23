@@ -70,7 +70,7 @@ import Code from "../components/Code.astro";
 <p-slide>
 	<div class="alert" aria-label="Example of an alert element">
 		<header p-fragment="1" effect="insert">Please take action</header>
-		Something has gone wrong: check the log
+		Something went wrong: check the log
 		<button type="button" p-fragment="5"></button>
 	</div>
 	<Code code={`class Alert extends HTMLElement {
@@ -94,19 +94,10 @@ import Code from "../components/Code.astro";
 </p-slide>
 <style lang="scss">
 	.alert {
-		border: .1em solid;
-		background-color: rgb(255, 155, 41);
-		border-radius: .25em;
-		padding: .5em;
-		position: relative;
 		font-size: 50%;
 		align-self: flex-end;
 		margin-bottom: -1em;
 
-		header {
-			font-weight: bold;
-			font-size: 125%;
-		}
 		button {
 			border: none;
 			position: absolute;
@@ -116,7 +107,7 @@ import Code from "../components/Code.astro";
 			font-size: inherit;
 			color: inherit;
 			background: currentColor;
-			clip-path: polygon(10% 0,50% 40%,90% 0,100% 10%,60% 50%,100% 90%,90% 100%,50% 60%,10% 100%,0 90%,40% 50%,0 10%);
+			clip-path: polygon(10% 0, 50% 40%, 90% 0, 100% 10%, 60% 50%, 100% 90%, 90% 100%, 50% 60%, 10% 100%, 0 90%, 40% 50%, 0 10%);
 		}
 	}
 </style>

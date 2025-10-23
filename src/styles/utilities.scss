@@ -70,8 +70,10 @@
 	white-space: nowrap;
 }
 
-.relative {
-	position: relative;
+@each $position in absolute relative {
+	.#{$position} {
+		position: $position;
+	}
 }
 
 .stack {

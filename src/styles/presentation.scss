@@ -218,4 +218,15 @@ p-fragment, [p-fragment] {
 	border-radius: 0.25em;
 	scrollbar-width: none;
 	tab-size: 2;
+	line-height: 1.05;
+
+	&:has(> svg) {
+		position: relative;
+	}
+	> svg {
+		padding: inherit;
+		position: absolute;
+		inset: 0 auto auto 0;
+		box-sizing: content-box;
+	}
 }

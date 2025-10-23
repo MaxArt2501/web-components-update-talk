@@ -1,0 +1,208 @@
+---
+import Code from "../components/Code.astro";
+---
+
+<p-slide>
+	<hgroup>
+		<h2>What's <strong>next</strong>?</h2>
+		<div>Future evolutions</div>
+	</hgroup>
+</p-slide>
+<p-slide class="justify-start gap-08">
+	<hgroup>
+		<h3 class="h5"><strong>Scoped</strong> custom element registries</h3>
+		<div>Because global definitions suck</div>
+	</hgroup>
+	<p-fragment class="relative s05 self-center">
+		<Code lang="html" code={`<div id="my-app">${' '.repeat(30)}
+{#4;insert{  ▾#shadow-root (open)
+{#5;insert{  │ <slot>
+  │
+  └ </slot>
+}#}}#}  {#5;dim{<date-range name="range"></date-range>}#}
+</div>`}/>
+		<Code lang="html" code='<date-range name="range"></date-range>' p-fragment="5" effect="snatch" style="--from: 2ch -1lh; --to: 6ch -3lh; inset: auto auto 0 0"/>
+	</p-fragment>
+	<Code code={`const {#4;highlight{registry}#} = new CustomElementRegistry();
+{#insert{
+const scope = document.querySelector('#my-app')
+}#}{#4;insert{  .attachShadow({ mode: 'open', {#4;highlight{registry}#} });
+}#}{#5;insert{
+scope.shadowRoot.innerHTML = '<slot></slot>';
+}#}`} p-fragment class="s05 self-center"/>
+	<p-fragment index="6" flex="column" class="browser-support self-center" effect="from right" style="position: absolute; inset: 3em 4em 0 auto">
+		<div class="chrome">143?</div>
+		<div class="firefox"></div>
+		<div class="safari">26</div>
+	</p-fragment>
+</p-slide>
+<p-slide class="gap-1 justify-start">
+	<hgroup>
+		<h3 class="h5"><strong>:has-slotted</strong></h3>
+		<div>Because empty slots suck</div>
+	</hgroup>
+	<div grid="2" class="align-start s05 gap-2" p-fragment>
+		<div class="relative">
+			<Code lang="html" code={`<my-alert>
+{#1;insert{  ▾#shadow-root (open)
+  │ <slot name="header"></slot>
+  │ <slot>
+  │
+  └ </slot>
+}#}{#1;collapse{
+}#}</my-alert>`}/>
+			<Code lang="html" code='Something went wrong: check the log' p-fragment="1" effect="snatch" style="--from: 2ch -1lh; --to: 6ch -2lh; inset: auto auto 0 0"/>
+		</div>
+		<Code lang="css" code={`slot[name='header'] {
+{#3;insert{  display: block;
+}#}{#4;insert{  {#5;highlight{padding-block-end: .25em}#};
+  {#5;highlight{border-block-end: .1em solid}#};
+  {#5;highlight{margin-block-end: .25em}#};
+}#}{#6;insert{
+  &:not({#7;highlight green{:has-slotted}#}) {
+    display: none;
+  }
+}#}}`} p-fragment style="grid-row-end: span 2;"/>
+		<div class="alert" aria-label="Example of an alert element">
+			<p-fragment index="3" effect="insert">
+				<header p-fragment="5" effect="collapse">Please take action</header>
+				<p-fragment index="7" effect="collapse">
+					<hr p-fragment="4" effect="insert">
+				</p-fragment>
+			</p-fragment>
+			Something went wrong: check the log
+		</div>
+	</div>
+	<p-fragment class="browser-support self-center" effect="from bottom">
+		<div class="chrome">134</div>
+		<div class="firefox">136</div>
+		<div class="safari"></div>
+	</p-fragment>
+</p-slide>
+<style lang="scss">
+	.alert {
+		grid-area: 2 / 1;
+	}
+	hr {
+		color: inherit;
+		background: linear-gradient(currentColor, currentColor) padding-box;
+		border: .25em solid transparent;
+		border-inline: none;
+		padding-block: .05em;
+		margin: 0;
+	}
+</style>
+<p-slide class="justify-start gap-1">
+	<hgroup>
+		<h3 flex class="h5 justify-between"><strong>:host:has(&hellip;)</strong> and <strong>:host(:has(&hellip;))</strong></h3>
+	</hgroup>
+	<div grid="2" class="gap-05">
+		<Code lang="html" code={`<my-alert>
+{#insert{  ▾#shadow-root (open)
+  │ <header>
+  │   <slot name="title"></slot>
+  │ </header>
+  │ <button>×</button>
+  └ <slot></slot>
+}#}  Something went wrong
+</my-alert>`} class="s05" p-fragment/>
+		<Code lang="html" code={`<my-dialog>
+{#insert{  ▾#shadow-root (open)
+  │ <dialog>
+  │   <slot></slot>
+  │   <button>Ok</button>
+  └ </dialog>
+}#}  Something went wrong
+  <button>Call mom!</button>
+</my-dialog>`} class="s05" p-fragment/>
+		<Code lang="css" code={`:host:has(button) {
+  position: relative;
+}`} class="s05" p-fragment="2"/>
+		<Code lang="css" code={`:host(:has(button)) {
+  button { display: none; }
+}`} class="s05" p-fragment/>
+		<p-fragment index="3" class="browser-support" effect="from bottom">
+			<div class="chrome"></div>
+			<div class="firefox"></div>
+			<div class="safari">10.1</div>
+		</p-fragment>
+		<p-fragment class="browser-support" effect="from bottom">
+			<div class="chrome"></div>
+			<div class="firefox"></div>
+			<div class="safari"></div>
+		</p-fragment>
+	</div>
+</p-slide>
+<p-slide class="justify-start gap-1">
+	<hgroup>
+		<h3 flex class="h5"><strong>Reference target</strong></h3>
+		<div>Because incomplete accessibility sucks</div>
+	</hgroup>
+	<div grid="2" class="s05 align-start">
+		<p-fragment flex="column" class="gap-1">
+			<Code lang="html" code={`<div id="{#3;highlight{explain}#}" popover>Your email</div>
+
+<info-point aria-describedby="popover">
+{#insert{  ▾#shadow-root (open)
+  │ <button{#3;reveal{ {#strike{aria-controls="{#3;highlight{explain}#}"}#}}#}>
+  │  ℹ️
+  └ </button>
+}#}</info-point>`}>
+				<svg viewBox="0 0 40 30" style="height: 7lh; aspect-ratio: 4 / 3; left: 3ch">
+					<path stroke="red" d="M4,18A20,11 0 0 1 6,5" p-fragment="2" effect="drawing arrow" style="--length: 15.83"/>
+				</svg>
+			</Code>
+			<Code code={`this.shadowRoot
+  .querySelectorAll('button')
+  .{#highlight{ariaControlsElements}#}
+    = {#7;highlight green{[this.previousElementSibling]}#};`} p-fragment/>
+		</p-fragment>
+		<p-fragment flex="column" class="gap-1">
+			<Code lang="html" code={`<button
+  command="show-modal"
+{#11;insert{  {#strike{commandfor="{#11;highlight{dialog}#}"}#}
+}#}> Open details </button>
+<my-modal>
+{#9;insert{  ▾#shadow-root (open)
+  │ <dialog id="{#11;highlight{dialog}#}">
+  │ ...
+  └ </dialog>
+}#}</my-modal>`}>
+				<svg viewBox="0 0 40 30" style="height: 7lh; aspect-ratio: 4 / 3; inset: auto auto 3lh 9ch">
+					<path stroke="red" d="M28,9A20,11 0 0 1 32,25" p-fragment="10" effect="drawing arrow" style="--length: 21.85"/>
+				</svg>
+			</Code>
+			<Code code={`this.previousElementSibling
+  .{#highlight{commandForElement}#} = {#15;highlight red{this.shadowRoot}#}
+    {#15;highlight red{.querySelector('dialog')}#};`} p-fragment/>
+		</p-fragment>
+	</div>
+</p-slide>
+<p-slide class="gap-1">
+	<div grid="2" class="align-center">
+		<Code code={`this.attachShadow({
+  mode: 'open',
+{#0;insert{  {#0;highlight{referenceTarget}#}: '{#1;highlight blue{dialog}#}'
+}#}});
+this.shadowRoot.innerHTML = \`
+  <dialog id="{#1;highlight blue{dialog}#}">
+    ...
+  </dialog>
+\`;`} class="s05"/>
+		<Code lang="html" code={`<my-dialog>
+  <template
+    shadowrootmode="open"
+{#3;insert{    {#3;highlight{shadowrootreferencetarget}#}="{#4;highlight blue{dialog}#}"
+}#}  >
+    <dialog id="{#4;highlight blue{dialog}#}">
+      ...
+    </dialog>
+  </template>
+</my-dialog>`} class="s05" p-fragment/>
+	</div>
+	<Code lang="html" code={`<button
+  command="show-modal"
+  commandfor="{#6;highlight blue{details}#}"
+>	Open details </button>
+<my-dialog id="{#6;highlight blue{details}#}">...</my-dialog>`} class="s05 self-center" p-fragment/>
+</p-slide>
