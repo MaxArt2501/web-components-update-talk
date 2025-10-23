@@ -1,0 +1,110 @@
+---
+import Code from "../components/Code.astro";
+---
+
+<p-slide>
+	<hgroup>
+		<h2 class="h3"><strong>Without</strong> Shadow DOM?</h2>
+		<div>I.e. "light DOM" custom elements</div>
+	</hgroup>
+	<ul class="self-center">
+		<li p-fragment>Purely functional components</li>
+		<li p-fragment>No need for encapsulation</li>
+		<li p-fragment>Structural/view logic elements</li>
+	</ul>
+</p-slide>
+<p-slide class="gap-1">
+	<hgroup>
+		<h3 class="h4"><strong>Functional</strong> components</h3>
+	</hgroup>
+	<div grid="2" class="align-center self-center">
+		<Code lang="html" code={`<{#2;highlight{focus-trap}#}>
+  <label for="zip">Zip Code</label>
+  <input id="zip" name="zip">
+
+  <button>Submit</button>
+</focus-trap>`} class="s05 self-center" p-fragment/>
+		<Code lang="css" code={`{#insert{/* styles.css */
+}#}{#2;highlight{focus-trap}#} {
+  display: contents;
+}`} class="s05 self-center" p-fragment/>
+	</div>
+</p-slide>
+<p-slide class="gap-1">
+	<hgroup>
+		<h3 class="h4">Encapsulation <strong>not</strong> needed</h3>
+	</hgroup>
+	<div grid="2" class="align-center self-center">
+		<Code lang="html" code={`<login-mask>
+  <form>
+    <label for="name">Name</label>
+    <input id="name" name="name">
+    <label for="password">Password</label>
+    <input id="password" name="password">
+    <button>Login</button>
+  </form>
+</login-mask>`} class="s05" p-fragment/>
+		<div flex="column" class="gap-1">
+			<Code lang="css" code={`/* styles.css */
+login-mask {
+  display: flex;
+  flex-direction: column;
+  form {
+    display: grid;
+    gap: 1rem;
+  }
+}`} class="s05" p-fragment/>
+			<Code lang="css" code={`/* navbar-login-dialog.css */
+login-mask {
+  padding: 0.25rem;
+	form { gap: 0.5rem; }
+}`} class="s05" p-fragment effect="insert"/>
+		</div>
+	</div>
+</p-slide>
+<p-slide class="gap-05">
+	<hgroup>
+		<h3 class="h4">Like a <strong>framework</strong></h3>
+	</hgroup>
+	<div grid="2" class="align-center self-center s05">
+		<Code lang="html" code={`<{#3;highlight{my-dashboard}#}>
+{#4;insert{  {#4;highlight red{<my-sidebar>
+    <{#5;highlight blue{section}#}>...</section>
+    ...
+  </my-sidebar>           }#}
+}#}  <main>
+    <{#5;highlight blue{section}#} class="full-width">
+      <header>
+        <span>Active users</span>
+        <a href="...">Details</a>
+      </header>
+      <ui-barchart>...</ui-barchart>${'   '}
+    </section> ...
+  </main>
+</my-dashboard>`} p-fragment/>
+		<Code lang="css" code={`/* styles.css */
+{#3;reveal{@scope (}#}my-dashboard{#3;reveal{)}#}{#6;reveal{ to ({#6;highlight red{my-sidebar}#})}#} {
+{#3;insert{  {#3;highlight{:scope}#} {
+}#}{#3;reveal{  }#}  display: flex;
+{#3;reveal{  }#}  flex-direction: column;
+{#3;insert{  }
+}#}{#2;insert{  main {
+    display: grid;
+    grid-template: repeat(2, 1fr);
+  }
+  {#5;highlight blue{section}#} {
+    border: 1px solid var(--border-color);
+  }
+}#}}`} p-fragment/>
+	</div>
+	<div class="browser-support" p-fragment effect="from bottom">
+		<div class="chrome">118</div>
+		<div class="firefox"></div>
+		<div class="safari">17.5</div>
+	</div>
+</p-slide>
+<p-slide class="center">
+	<div>Just remember&hellip;</div>
+	<div class="h1 bold" p-fragment="0">Use</div>
+	<img src="../img/lit.svg" alt="Logo of Lit" p-fragment="0" style="flex: 1; min-height: 0;">
+</p-slide>
