@@ -3,7 +3,14 @@ import Code from "../components/Code.astro";
 ---
 <p-slide>
 	<hgroup>
+		<h2>Web components</h2>
+		<p>The <strong>sad</strong> parts</p>
+	</hgroup>
+</p-slide>
+<p-slide>
+	<hgroup>
 		<h3>Attribute reflection</h3>
+		<div>A property for every attribute</div>
 	</hgroup>
 </p-slide>
 <p-slide>
@@ -11,19 +18,20 @@ import Code from "../components/Code.astro";
 	<Code code={`class Card extends HTMLElement {
 {#insert{  static observedAttributes = ['variant'];
 }#}{#1;insert{
-{#2;insert{  get variant() {
-{#4;collapse{    return this.getAttribute('variant');
+  {#2;reveal{get }#}variant{#2;reveal{() {}#}
+{#4;collapse{    {#2;shrink{= }#}{#2;reveal{return this.getAttribute('variant') ?? }#}'default';
 }#}{#4;insert{    const variant = this.getAttribute('variant');
     return {#4;highlight red{ALLOWED_VARIANTS.includes(variant)}#}
       {#4;highlight red{? variant : 'default'}#};
-}#}  }
+}#}{#2;insert{  }
   set variant(variant) {
 {#4;insert{    {#4;highlight red{if (!ALLOWED_VARIANTS.includes(variant)) return;}#}
 }#}{#3;insert{    {#3;highlight{if (this.variant !== variant) {}#}
 }#}    {#3;reveal{  }#}this.setAttribute('variant', variant);
 {#3;insert{    {#3;highlight{}}#}
 }#}  }
-}#}  attributeChangedCallback(name, oldValue, value) {
+}#}{#2;collapse{
+}#}  attributeChangedCallback(name, oldValue, value) {${'  '}
     if (name === 'variant') {
       this.variant = value;
     }
@@ -71,7 +79,7 @@ import Code from "../components/Code.astro";
 	<div class="alert" aria-label="Example of an alert element">
 		<header p-fragment="1" effect="insert">Please take action</header>
 		Something went wrong: check the log
-		<button type="button" p-fragment="5"></button>
+		<button type="button" p-fragment="4"></button>
 	</div>
 	<Code code={`class Alert extends HTMLElement {
 {#insert{  set alertTitle(title) {
@@ -81,14 +89,14 @@ import Code from "../components/Code.astro";
 }#}{#insert{
   set closable(closable) {
     this.toggleAttribute('closable', closable);
-{#3;insert{		let closeBtn = this.shadowRoot.querySelector('button');
-}#}{#4;insert{		if (closable && !closeBtn) {
-			{#5;highlight green{closeBtn = document.createElement('button');}#}
-			{#5;highlight green{closeBtn.type = 'button';}#}
-			{#5;highlight green{this.shadowRoot.append(closeBtn);}#}
-		} else if (!closable) {
-		  {#6;highlight red{closeBtn?.remove();}#}
-		}
+{#3;insert{    let closeBtn = this.shadowRoot.querySelector('button');
+}#}{#4;insert{    if (closable && !closeBtn) {
+      {#4;highlight green{closeBtn = document.createElement('button');}#}
+      {#4;highlight green{closeBtn.type = 'button';}#}
+      {#4;highlight green{this.shadowRoot.append(closeBtn);}#}
+{#5;insert{    } else if (!closable) {
+      {#5;highlight red{closeBtn?.remove();}#}
+}#}    }
 }#}  }
 }#}}`} class="s05 self-center"/>
 </p-slide>

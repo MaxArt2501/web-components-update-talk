@@ -36,9 +36,9 @@ scope.shadowRoot.innerHTML = '<slot></slot>';
 		<div class="safari">26</div>
 	</p-fragment>
 </p-slide>
-<p-slide class="gap-1 justify-start">
+<p-slide class="gap-07 justify-start">
 	<hgroup>
-		<h3 class="h5"><strong>:has-slotted</strong></h3>
+		<h3 class="h4"><strong>:has-slotted</strong></h3>
 		<div>Because empty slots suck</div>
 	</hgroup>
 	<div grid="2" class="align-start s05 gap-2" p-fragment>
@@ -94,7 +94,7 @@ scope.shadowRoot.innerHTML = '<slot></slot>';
 </style>
 <p-slide class="justify-start gap-1">
 	<hgroup>
-		<h3 flex class="h5 justify-between"><strong>:host:has(&hellip;)</strong> and <strong>:host(:has(&hellip;))</strong></h3>
+		<h3 flex class="h4 justify-between"><strong>:host:has(&hellip;)</strong> &amp; <strong>:host(:has(&hellip;))</strong></h3>
 	</hgroup>
 	<div grid="2" class="gap-05">
 		<Code lang="html" code={`<my-alert>
@@ -135,10 +135,30 @@ scope.shadowRoot.innerHTML = '<slot></slot>';
 </p-slide>
 <p-slide class="justify-start gap-1">
 	<hgroup>
-		<h3 flex class="h5"><strong>Reference target</strong></h3>
+		<h3 class="h4">CSS <strong>module</strong> scripts</h3>
+		<div>Because "CSS modules" was already taken</div>
+	</hgroup>
+	<Code code={`import styles from './css/alert.css' {#highlight{with { type: 'css' }}#};
+
+class Alert extends HTML {
+  constructor() {
+		super();
+		this.attachShadow({ mode: 'open' });
+		this.shadowRoot.adoptedStyleSheets = [ {#highlight{styles}#} ];
+	}
+}`} class="s05 self-center"/>
+	<p-fragment class="browser-support" effect="from bottom">
+		<div class="chrome">123</div>
+		<div class="firefox"></div>
+		<div class="safari"></div>
+	</p-fragment>
+</p-slide>
+<p-slide class="justify-start gap-09">
+	<hgroup>
+		<h3 flex class="h4"><strong>Reference target</strong></h3>
 		<div>Because incomplete accessibility sucks</div>
 	</hgroup>
-	<div grid="2" class="s05 align-start">
+	<div grid="2" class="s05 align-start gap-2">
 		<p-fragment flex="column" class="gap-1">
 			<Code lang="html" code={`<div id="{#3;highlight{explain}#}" popover>Your email</div>
 
@@ -178,7 +198,7 @@ scope.shadowRoot.innerHTML = '<slot></slot>';
 		</p-fragment>
 	</div>
 </p-slide>
-<p-slide class="gap-1">
+<p-slide class="gap-08">
 	<div grid="2" class="align-center">
 		<Code code={`this.attachShadow({
   mode: 'open',
@@ -205,4 +225,9 @@ this.shadowRoot.innerHTML = \`
   commandfor="{#6;highlight blue{details}#}"
 >	Open details </button>
 <my-dialog id="{#6;highlight blue{details}#}">...</my-dialog>`} class="s05 self-center" p-fragment/>
+	<p-fragment class="browser-support self-center" effect="from bottom">
+		<div class="chrome"></div>
+		<div class="firefox"></div>
+		<div class="safari"></div>
+	</p-fragment>
 </p-slide>

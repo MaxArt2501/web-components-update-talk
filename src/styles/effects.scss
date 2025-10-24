@@ -33,10 +33,11 @@
 	}
 }
 
-@include effect(reveal, #{max-width, padding-inline, border-inline-width, overflow}) using ($hidden) {
+@include effect(reveal, #{max-width, padding-inline, margin-inline, border-inline-width, overflow}) using ($hidden) {
 	@if $hidden == true {
 		max-width: 0;
 		padding-inline: 0;
+		margin-inline: 0;
 		border-inline-width: 0;
 		overflow: clip;
 	} @else if $hidden == false {
@@ -47,21 +48,24 @@
 		transition-behavior: allow-discrete;
 	}
 }
-@include effect(shrink, #{max-width, padding-inline, border-inline-width}) using ($hidden) {
+@include effect(shrink, #{max-width, padding-inline, margin-inline, border-inline-width}) using ($hidden) {
 	@if $hidden == true {
 		max-width: 100vw;
 	} @else if $hidden == false {
 		max-width: 0;
 		padding-inline: 0;
+		margin-inline: 0;
+		border-inline-width: 0;
 	} @else {
 		display: inline-block;
 		overflow: clip;
 	}
 }
-@include effect(insert, #{max-height, padding-block, border-block-width, overflow}) using ($hidden) {
+@include effect(insert, #{max-height, padding-block, margin-block, border-block-width, overflow}) using ($hidden) {
 	@if $hidden == true {
 		max-height: 0;
 		padding-block: 0;
+		margin-block: 0;
 		border-block-width: 0;
 		overflow: clip;
 	} @else if $hidden == false {
@@ -72,12 +76,13 @@
 		transition-behavior: allow-discrete;
 	}
 }
-@include effect(collapse, #{max-height, padding-block, border-block-width}) using ($hidden) {
+@include effect(collapse, #{max-height, padding-block, margin-block, border-block-width}) using ($hidden) {
 	@if $hidden == true {
 		max-height: 100vh;
 	} @else if $hidden == false {
 		max-height: 0;
 		padding-block: 0;
+		margin-block: 0;
 		border-block-width: 0;
 	} @else {
 		display: block;
@@ -183,7 +188,7 @@
 	}
 }
 @supports (width: calc-size(auto, size)) {
-	@include effect(reveal, #{width, padding-inline, border-inline-width, overflow}) using ($hidden) {
+	@include effect(reveal, #{width, padding-inline, margin-inline, border-inline-width, overflow}) using ($hidden) {
 		@if $hidden == true {
 			max-width: unset;
 			width: 0;
@@ -191,7 +196,7 @@
 			width: calc-size(auto, size);
 		}
 	}
-	@include effect(shrink, #{width, padding-inline, border-inline-width}) using ($hidden) {
+	@include effect(shrink, #{width, padding-inline, margin-inline, border-inline-width}) using ($hidden) {
 		@if $hidden == true {
 			width: calc-size(auto, size);
 		} @else if $hidden == false {
@@ -199,7 +204,7 @@
 			width: 0;
 		}
 	}
-	@include effect(insert, #{height, padding-block, border-block-width, overflow}) using ($hidden) {
+	@include effect(insert, #{height, padding-block, margin-block, border-block-width, overflow}) using ($hidden) {
 		@if $hidden == true {
 			max-height: unset;
 			height: 0;
@@ -207,7 +212,7 @@
 			height: calc-size(auto, size);
 		}
 	}
-	@include effect(collapse, #{height, padding-block, border-block-width}) using ($hidden) {
+	@include effect(collapse, #{height, padding-block, margin-block, border-block-width}) using ($hidden) {
 		@if $hidden == true {
 			height: calc-size(auto, size);
 		} @else if $hidden == false {

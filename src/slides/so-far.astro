@@ -12,7 +12,7 @@ const bt = '`';
 </p-slide>
 <p-slide class="justify-evenly">
 	<hgroup>
-		<h3 class="h4">Web Components are<br /><strong><p-fragment index="5" effect="reveal">HTML</p-fragment> elements</strong></h3>
+		<h3 class="h4">Web Components are<br /><strong><p-fragment index="5" effect="reveal">HTML&nbsp;</p-fragment>elements</strong></h3>
 	</hgroup>
 	<div flex class="gap-1 self-center align-center">
 		<Code
@@ -173,23 +173,23 @@ const bt = '`';
 		<Code lang="html" code={`<my-card>
   ▾#shadow-root (open)
   │ <header>
-  │   <slot name="header">${' '.repeat(17)}
-{#0;insert{  │
+  │   <slot name="{#0;highlight{header}#}">${' '.repeat(17)}
+{#1;insert{  │
 }#}  │   </slot>
   │ </header>
   │ <div>
   │   <slot>
-{#0;insert{  │
+{#1;insert{  │
 }#}  │   </slot>
   └ </div>
-{#0;collapse{  <span slot="header">Mt. Fuji</span>
+{#1;collapse{  <span slot="{#1;highlight{header}#}">Mt. Fuji</span>
   Photos from my last trip to Japan.
 }#}</my-card>`} class="s05" />
 		<Code
 			lang="html"
-			code={`<span slot="header">Mt. Fuji</span>`}
+			code={`<span slot="{#0;highlight{header}#}">Mt. Fuji</span>`}
 			class="s05"
-			p-fragment="0"
+			p-fragment="1"
 			effect="snatch"
 			style="--from: 2ch 10lh; --to: 8ch 4lh"
 		/>
@@ -197,7 +197,7 @@ const bt = '`';
 			lang="html"
 			code={`Photos from my last trip to Japan.`}
 			class="s05"
-			p-fragment="0"
+			p-fragment="1"
 			effect="snatch"
 			style="--from: 2ch 11lh; --to: 8ch 9lh"
 		/>
@@ -208,13 +208,13 @@ const bt = '`';
 });
 {#insert{const nodes = Object.groupBy(
   this.childNodes,
-  {#4;highlight blue{node =>
+  {#5;highlight blue{node =>
     isHeading(node) ? 'headings' :
     isContent(node) ? 'content' : 'rest'
   }${' '.repeat(37)}}#}
 );
-headerSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{headings}#});
-contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`} class="s05"/>
+headerSlot.{#4;highlight{assign}#}(...nodes.{#5;highlight blue{headings}#});
+contentSlot.{#4;highlight{assign}#}(...nodes.{#5;highlight blue{content}#});}#}`} class="s05"/>
 		</p-fragment>
 	</div>
 </p-slide>
@@ -358,13 +358,14 @@ contentSlot.{#3;highlight{assign}#}(...nodes.{#4;highlight blue{content}#});}#}`
 			</svg>
 			<img p-fragment="1" src="../img/weather.svg" alt="Example of a weather widget">
 			<Code lang="html" code={`<ng-wrapper>
-  <app-root>
-    <router-outlet/>
-    <app-home>
-      ...
-    <app-home>
-  </app-root>
-</ng-wrapper>`} p-fragment="2" class="s09"/>
+  ▾#shadow-root (open)
+  │ <app-root>
+  │   <router-outlet/>
+  │   <app-home>
+  │     ...
+  │   <app-home>
+  └ </app-root>
+</ng-wrapper>`} p-fragment="2" class="s07"/>
 			<div grid="2" class="gap-05" p-fragment="3" aria-label="Example of a micro-frontend layout" style="padding: .5em">
 				<div class="mfe">news-feed</div>
 				<div class="mfe">live-chat</div>

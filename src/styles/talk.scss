@@ -371,15 +371,19 @@ hgroup {
 		-webkit-text-stroke: #fff .05em;
 		paint-order: stroke fill;
 		line-height: 1;
-
-		&:empty::before {
-			content: '🗙';
-		}
 	}
 
 	@each $browser in chrome firefox safari {
 		.#{$browser} {
 			background-image: url(../img/#{$browser}.svg);
+			&:not(:empty)::before {
+				content: 'Supported in #{$browser} from version';
+				position: absolute;
+				clip-path: inset(50%);
+			}
+			&:empty::before {
+				content: '❌' / 'No support in #{$browser} yet';
+			}
 		}
 	}
 }
