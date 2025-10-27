@@ -3,7 +3,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import styles from '../styles/date-range.scss?raw';
 
 @customElement('date-range')
-class DateRange extends LitElement {
+export class DateRange extends LitElement {
 	static styles = css`
 		${unsafeCSS(styles)}
 	`;

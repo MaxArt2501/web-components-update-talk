@@ -1,41 +1,53 @@
 {
-	"name": "web-components-update-talk",
-	"description": "Web Components: where are we at now?",
-	"keywords": [
-		"presentation",
-		"frontend",
-		"web components"
-	],
-	"type": "module",
-	"version": "0.0.1",
-	"scripts": {
-		"dev": "astro dev",
-		"start": "astro dev",
-		"build": "astro build",
-		"preview": "astro preview",
-		"astro": "astro"
-	},
-	"dependencies": {
-		"astro": "^5.12.9",
-		"lit": "^3.3.1",
-		"p-slides": "^1.4.2",
-		"uqr": "^0.1.2"
-	},
-	"devDependencies": {
-		"sass": "^1.89.2",
-		"vite-plugin-static-copy": "^3.1.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/MaxArt2501/web-components-update-talk.git"
-	},
-	"author": {
-		"name": "Massimo Artizzu",
-		"email": "maxart.x@gmail.com"
-	},
-	"license": "UNLICENSED",
-	"bugs": {
-		"url": "https://github.com/MaxArt2501/web-components-update-talk/issues"
-	},
-	"homepage": "https://github.com/MaxArt2501/web-components-update-talk#readme"
+  "name": "web-components-update-talk",
+  "description": "Web Components: where are we at now?",
+  "keywords": [
+    "presentation",
+    "frontend",
+    "web components"
+  ],
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "astro": "^5.12.9",
+    "lit": "^3.3.1",
+    "p-slides": "^1.4.2",
+    "uqr": "^0.1.2"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^4.1.1",
+    "@storybook/addon-a11y": "^9.1.15",
+    "@storybook/addon-docs": "^9.1.15",
+    "@storybook/addon-vitest": "^9.1.15",
+    "@storybook/web-components-vite": "^9.1.15",
+    "@vitest/browser-playwright": "^4.0.3",
+    "@vitest/coverage-v8": "^4.0.3",
+    "playwright": "^1.56.1",
+    "sass": "^1.89.2",
+    "storybook": "^9.1.15",
+    "vite-plugin-static-copy": "^3.1.0",
+    "vitest": "^4.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxArt2501/web-components-update-talk.git"
+  },
+  "author": {
+    "name": "Massimo Artizzu",
+    "email": "maxart.x@gmail.com"
+  },
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/MaxArt2501/web-components-update-talk/issues"
+  },
+  "homepage": "https://github.com/MaxArt2501/web-components-update-talk#readme"
 }

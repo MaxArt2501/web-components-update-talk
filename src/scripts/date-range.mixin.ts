@@ -16,7 +16,7 @@ const { FormAssociatedElement, isDisabled, updateValueAndValidity } = formAssoci
 	}
 });
 
-class DateRange extends FormAssociatedElement {
+export class DateRange extends FormAssociatedElement {
 	static formAssociated = true;
 
 	get value() {

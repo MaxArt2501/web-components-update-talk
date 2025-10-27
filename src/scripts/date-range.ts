@@ -6,7 +6,7 @@ styleSheet.replaceSync(styles);
 // @ts-ignore
 const html = String.raw;
 
-class DateRange extends HTMLElement {
+export class DateRange extends HTMLElement {
 	static formAssociated = true;
 
 	static observedAttributes = ['value'];
