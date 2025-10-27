@@ -149,7 +149,7 @@
 		display: inline-block;
 	}
 }
-@include effect(drawing, stroke-dasharray, 2) using ($hidden) {
+@include effect(drawing, stroke-dasharray) using ($hidden) {
 	@if $hidden == true {
 		stroke-dasharray: 0px var(--length, 0px);
 		stroke-width: 0;

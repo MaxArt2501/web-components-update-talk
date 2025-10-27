@@ -136,3 +136,9 @@ export class DateRange extends HTMLElement {
 }
 
 customElements.define('date-range', DateRange);
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'date-range': DateRange;
+	}
+}

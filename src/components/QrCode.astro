@@ -5,7 +5,7 @@ import { encode } from 'uqr';
 
 type QrCodeGenerateOptions = NonNullable<Parameters<typeof encode>[1]>;
 
-interface Props extends Exclude<QrCodeGenerateOptions, 'border' | 'onEncoded'>, HTMLAttributes<'svg'> {
+interface Props extends Omit<QrCodeGenerateOptions, 'border' | 'onEncoded'>, HTMLAttributes<'svg'> {
 	content: string;
 	padding?: number;
 	variant?: Variant;

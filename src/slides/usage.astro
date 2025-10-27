@@ -1,0 +1,117 @@
+---
+import Code from '../components/Code.astro';
+import IdePopover from '../components/IdePopover.astro';
+---
+<p-slide>
+	<hgroup>
+		<h2 class="h3">How do we <strong>use</strong> them?</h2>
+		<div>In practical terms</div>
+	</hgroup>
+</p-slide>
+<p-slide class="justify-start gap-1">
+	<hgroup>
+		<h3 class="h4">Let <strong>TypeScript</strong> know</h3>
+		<div>We can start small</div>
+	</hgroup>
+	<div grid="2" class="self-center align-start">
+		<Code code={`declare global {
+  interface {#highlight{HTMLElementTagNameMap}#} {
+{#insert{    'date-range': DateRange;
+}#}  }
+}{#insert{
+const range = document
+  .createElement('date-range');
+}#}`} class="s05 relative no-clip" p-fragment>
+			<IdePopover code="const range: DateRange" inset={[6, , , 8]} p-fragment />
+		</Code>
+		<Code code={`declare global {
+  interface {#highlight{HTMLElementEventMap}#} {
+{#insert{    'ui-sort': SortEvent;
+}#}  }
+}{#insert{
+document.querySelector('ui-table')
+  .addEventListener('ui-sort', event => {
+    // ...
+  });}#}`} class="s05 relative no-clip" p-fragment>
+			<IdePopover code="const event: SortEvent" inset={[7, , , 17]} cursorShift={15} p-fragment />
+		</Code>
+	</div>
+</p-slide>
+<p-slide class="justify-start gap-1">
+	<hgroup>
+		<h3 class="h4">Custom Element <strong>Manifest</strong></h3>
+		<div>Like a business card</div>
+	</hgroup>
+	<Code lang="json" code={`{
+  "schemaVersion": "1.0.0",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "components/deck.js",
+      "declarations": [{
+        "kind": "class",
+        "description": "The class corresponding to the \`<p-deck>\` element...",
+        "name": "PresentationDeckElement",
+        "superclass": { "name": "HTMLElement" },
+        "tagName": "p-deck",
+        "members": [...], ...
+      }, ...`} class="s05 self-center"/>
+</p-slide>
+<p-slide class="gap-1 align-center">
+	<Code lang="text" code="npm i -D {#highlight{@custom-elements-manifest/analyzer}#}" class="s07" />
+	<Code code={`/**
+ * {#2;highlight green{The class corresponding to the \`<p-deck>\` element wrapper...}#}
+ * {#3;highlight{@tag}#} {#4;highlight blue{p-deck}#}
+ * {#3;highlight{@slot}#} - Expected to contain \`<p-slide>\` elements only
+ * {#3;highlight{@attribute}#} {PresentationMode} {#4;highlight blue{mode}#} - Presentation mode
+ * {#3;highlight{@fires}#} {PresentationFinishEvent} {#4;highlight blue{p-slides.finish}#} - When reaching the end
+ * {#3;highlight{@cssprop}#} {<time>} [{#4;highlight blue{--fragment-duration}#}=300ms] - Time for a fragment's transition
+ * {#3;highlight{@csspart}#} {<aside>} {#4;highlight blue{sidebar}#} - Spearker mode's sidebar
+ * ... */
+export class PresentationDeckElement extends HTMLElement {
+  /**
+   * Getter/setter of current deck mode...
+   * {#3;highlight{@type}#} {PresentationMode}
+   */
+  get {#4;highlight blue{mode}#}() { ... }
+  set {#4;highlight blue{mode}#}(mode) { ... }
+}`} class="s05" p-fragment />
+</p-slide>
+<p-slide class="align-center">
+	<div class="h5" effect="falling">💪 <strong>Out of the box</strong> in JetBrains IDEs</div>
+	<div class="h5" effect="from bottom" p-fragment>😑 <strong>Needs "conversion"</strong> in VS Code</div>
+	<Code lang="text" code="npm i -D {#1;highlight{custom-elements-vs-code-integration}#}" class="s07" p-fragment="1"/>
+</p-slide>
+<p-slide class="align-center">
+	<Code lang="html" code={`<form>
+  <label for="range">Select a date range:</label>
+  <date-range id="range"{#1;reveal{ re}#}></date-range>
+</form>`} class="s07 relative no-clip">
+		<IdePopover options={['required', 'aria-readonly', 'aria-relevant', 'aria-required']} optionHighlight='re' inset={[2, , , 27]} p-fragment="1"/>
+	</Code>
+</p-slide>
+<p-slide class="justify-start gap-1">
+	<hgroup>
+		<h3 class="h4">Test with <strong>whatever</strong></h3>
+		<div>Because it's a standard</div>
+	</hgroup>
+	<Code code={`{#2;insert{import '../src/components/date-range';
+
+}#}describe('<date-range>', () => {
+  let element: DateRange;
+
+  beforeEach(() => {
+    document.body.innerHTML = '<{#1;highlight{date-range}#} name="range">';
+    element = document.querySelector('date-range');
+  });
+
+  it('should initialize correctly', () => { /*...*/ });
+});`} class="s05 self-center" p-fragment />
+</p-slide>
+<p-slide class="justify-around">
+	<hgroup>
+		<h3 class="h4">Integrate with <strong>Storybook</strong></h3>
+		<div>With support out of the box</div>
+	</hgroup>
+	<img src="../img/storybook.svg" alt="Storybook logo" style="height: 8em" />
+</p-slide>

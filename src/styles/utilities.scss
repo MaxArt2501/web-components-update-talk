@@ -129,6 +129,9 @@
 }
 .no-clip {
 	overflow: visible;
+	&:is(.astro-code) {
+		overflow: visible !important;
+	}
 }
 
 @supports (height: attr(h em)) {
@@ -167,6 +170,23 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.blink {
+  animation: blink 1s steps(1) infinite;
+  @media print {
+    animation: none;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .meme-text {
