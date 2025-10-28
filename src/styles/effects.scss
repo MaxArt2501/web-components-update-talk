@@ -5,7 +5,7 @@
 @mixin effect($name, $props, $duration-factor: 1) {
 	[effect~="#{$name}"] {
 		opacity: 1;
-		transition-duration: calc(var(--fragment-duration) * #{$duration-factor});
+		transition-duration: if($duration-factor == 1, var(--fragment-duration), calc(var(--fragment-duration) * #{$duration-factor}));
 		transition-property: $props;
 		@content(null);
 		@each $hidden in true, false {
@@ -56,9 +56,9 @@
 		padding-inline: 0;
 		margin-inline: 0;
 		border-inline-width: 0;
+		overflow: clip;
 	} @else {
 		display: inline-block;
-		overflow: clip;
 	}
 }
 @include effect(insert, #{max-height, padding-block, margin-block, border-block-width, overflow}) using ($hidden) {
@@ -70,7 +70,6 @@
 		overflow: clip;
 	} @else if $hidden == false {
 		max-height: 100vh;
-		overflow: visible;
 	} @else {
 		display: block;
 		transition-behavior: allow-discrete;
@@ -84,9 +83,9 @@
 		padding-block: 0;
 		margin-block: 0;
 		border-block-width: 0;
+		overflow: clip;
 	} @else {
 		display: block;
-		overflow: clip;
 	}
 }
 @include effect(strike, none) using ($hidden) {

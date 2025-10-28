@@ -57,6 +57,9 @@
 	[grid="#{$level}"] {
 		grid-template-columns: repeat(#{$level}, minmax(0, 1fr));
 	}
+	[h="#{$level}"] {
+		height: $level * 1em;
+	}
 }
 .lh-10 {
 	line-height: 1;
@@ -160,6 +163,15 @@
 		:is([#{$prop}$='px'], [#{$prop}$='rem'], [#{$prop}$='lh'], [#{$prop}$='rlh'], [#{$prop}$='ch'], [#{$prop}$='%']) {
 			#{$prop}: attr(#{$prop} type(#{'<length-percentage>'}));
 		}
+	}
+	[duration]:is(p-fragment, [p-fragment]) {
+		transition-duration: calc(var(--fragment-duration) * attr(duration type(#{'<number>'})));
+	}
+	p-slide[duration] {
+		animation-duration: calc(var(--slide-duration) * attr(duration type(#{'<number>'})));
+	}
+	[delay]:is(p-fragment, [p-fragment]) {
+		transition-delay: calc(var(--fragment-duration) * attr(delay type(#{'<number>'})));
 	}
 }
 
