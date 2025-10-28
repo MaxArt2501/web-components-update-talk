@@ -8,6 +8,79 @@ import IdePopover from '../components/IdePopover.astro';
 		<div>In practical terms</div>
 	</hgroup>
 </p-slide>
+<p-slide>
+	<hgroup>
+		<h3 class="h4">A note about <strong>events</strong></h3>
+		<div>The other custom thing</div>
+	</hgroup>
+</p-slide>
+<p-slide class="justify-between align-center">
+	<hgroup class="self-start">
+		<h4 class="h5">Mimicking native events</h4>
+		<div>Do it <strong>carefully</strong></div>
+	</hgroup>
+	<Code code={`class Card extends HTMLElement {
+  toggle() {
+    this.open = !this.open;
+    this.dispatchEvent(new {#highlight{ToggleEvent}#}({#2;highlight blue{'toggle'}#}, {
+      {#3;highlight green{newState}#}: this.open ? {#4;highlight blue{'open'}#} : {#4;highlight blue{'closed'}#},
+      {#3;highlight green{oldState}#}: this.open ? {#4;highlight blue{'closed'}#} : {#4;highlight blue{'open'}#}
+    }));
+  }
+}`} class="s05" p-fragment/>
+	<Code code={`class DateRange extends HTMLElement {
+  #handleChange(event: Event) {
+    this.dispatchEvent(new {#highlight{Event}#}({#7;highlight blue{'change'}#}, {#8;highlight green{event}#});
+  }
+}`} class="s05" p-fragment/>
+</p-slide>
+<p-slide class="gap-1">
+	<hgroup>
+		<h4 class="h5">Actually <strong>custom</strong> events</h4>
+		<div>Without extra data</div>
+	</hgroup>
+	<Code code={`class Alert extends LitElement {
+	render() {
+		return html${'`'}
+			<button @click=\${this.#handleDismiss}></button>
+			<slot></slot>
+		${'`'};
+	}
+
+	#handleDismiss() {
+		this.dispatchEvent(new Event('{#highlight{ui.}#}dismiss'));
+	}
+}`} class="s05 self-center" p-fragment/>
+</p-slide>
+<p-slide class="gap-1">
+	<hgroup>
+		<div class="h5 bold">Actually <strong>custom</strong> events</div>
+		<div><strong>With</strong> extra data</div>
+	</hgroup>
+	<div grid="2" class="align-center">
+		<Code code={`class Table extends HTMLElement {
+  handleSortColumn() {
+    this.dispatchEvent(
+      new {#5;reveal{{#5;highlight green{SortEvent}#}}#}{#highlight{{#5;shrink{CustomEvent}#}}#}({#5;shrink{'ui.sort', {}#}
+{#5;collapse{        {#2;highlight blue{detail}#}: {
+}#}        {#5;shrink{  column: }#}this.sortColumn,
+        {#5;shrink{  direction: }#}this.sortDirection
+{#5;collapse{        },
+        cancelable: true
+}#}      {#5;shrink{}}#})
+    );
+  }
+}`} class="s05" p-fragment/>
+			<Code code={`class SortEvent extends Event {
+  constructor(
+    readonly {#4;highlight green{column}#}: string,
+    readonly {#4;highlight green{direction}#}: 'asc' | 'desc'
+  ) {
+    super('ui.sort', {cancelable: true});
+  }	
+}`} class="s05" p-fragment/>
+	</div>
+</p-slide>
 <p-slide class="justify-start gap-1">
 	<hgroup>
 		<h3 class="h4">Let <strong>TypeScript</strong> know</h3>
@@ -26,11 +99,11 @@ const range = document
 		</Code>
 		<Code code={`declare global {
   interface {#highlight{HTMLElementEventMap}#} {
-{#insert{    'ui-sort': SortEvent;
+{#insert{    'ui.sort': SortEvent;
 }#}  }
 }{#insert{
 document.querySelector('ui-table')
-  .addEventListener('ui-sort', event => {
+  .addEventListener('ui.sort', event => {
     // ...
   });}#}`} class="s05 relative no-clip" p-fragment>
 			<IdePopover code="const event: SortEvent" inset={[7, , , 17]} cursorShift={15} p-fragment />
