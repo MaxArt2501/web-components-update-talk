@@ -61,24 +61,24 @@ import IdePopover from '../components/IdePopover.astro';
 		<Code code={`class Table extends HTMLElement {
   handleSortColumn() {
     this.dispatchEvent(
-      new {#5;reveal{{#5;highlight green{SortEvent}#}}#}{#highlight{{#5;shrink{CustomEvent}#}}#}({#5;shrink{'ui.sort', {}#}
-{#5;collapse{        {#2;highlight blue{detail}#}: {
-}#}        {#5;shrink{  column: }#}this.sortColumn,
-        {#5;shrink{  direction: }#}this.sortDirection
-{#5;collapse{        },
-        cancelable: true
-}#}      {#5;shrink{}}#})
+      new {#9;reveal{{#9;highlight green{SortEvent}#}}#}{#highlight{{#9;shrink{CustomEvent}#}}#}({#9;shrink{{#6;highlight green{'ui.sort'}#}, {}#}
+{#9;collapse{        {#2;highlight red{detail}#}: {
+}#}        {#9;shrink{  column: }#}this.sortColumn,
+        {#9;shrink{  direction: }#}this.sortDirection
+{#9;collapse{        },
+        {#7;highlight green{cancelable: true}#}
+}#}      {#9;shrink{}}#})
     );
   }
 }`} class="s05" p-fragment/>
-			<Code code={`class SortEvent extends Event {
-  constructor(
-    readonly {#4;highlight green{column}#}: string,
-    readonly {#4;highlight green{direction}#}: 'asc' | 'desc'
-  ) {
-    super('ui.sort', {cancelable: true});
+			<Code code={`class SortEvent{#4;reveal{ extends {#4;highlight green{Event}#}}#} {
+{#insert{  constructor(
+{#8;insert{    readonly {#8;highlight green{column}#}: string,
+    readonly {#8;highlight green{direction}#}: 'asc' | 'desc'
+}#}  ) {
+    super({#6;highlight green{'ui.sort'}#}, {{#7;highlight green{cancelable: true}#}});
   }	
-}`} class="s05" p-fragment/>
+}#}}`} class="s05" p-fragment/>
 	</div>
 </p-slide>
 <p-slide class="justify-start gap-1">
@@ -160,7 +160,7 @@ export class PresentationDeckElement extends HTMLElement {
   <label for="range">Select a date range:</label>
   <date-range id="range"{#1;reveal{ re}#}></date-range>
 </form>`} class="s07 relative no-clip">
-		<IdePopover options={['required', 'aria-readonly', 'aria-relevant', 'aria-required']} optionHighlight='re' inset={[2, , , 27]} p-fragment="1"/>
+		<IdePopover options={['required', 'aria-readonly', 'aria-relevant', 'aria-required']} optionHighlight='re' inset={[2, , , 27]} p-fragment="1" delay="1"/>
 	</Code>
 </p-slide>
 <p-slide class="justify-start gap-1">

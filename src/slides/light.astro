@@ -36,14 +36,14 @@ import Code from "../components/Code.astro";
 	</hgroup>
 	<div grid="2" class="align-center self-center">
 		<Code lang="html" code={`<login-mask>
-  <form>
+{#insert{  <form>
     <label for="name">Name</label>
     <input id="name" name="name">
     <label for="password">Password</label>
     <input id="password" name="password">
     <button>Login</button>
   </form>
-</login-mask>`} class="s05" p-fragment/>
+}#}</login-mask>`} class="s05" p-fragment/>
 		<div flex="column">
 			<Code lang="css" code={`/* styles.css */
 login-mask {
