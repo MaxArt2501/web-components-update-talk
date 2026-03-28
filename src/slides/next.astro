@@ -13,25 +13,21 @@ import Code from "../components/Code.astro";
 		<h3 class="h5"><strong>Scoped</strong> custom element registries</h3>
 		<div>Because global definitions suck</div>
 	</hgroup>
-	<p-fragment class="relative s05 self-center">
-		<Code lang="html" code={`<div id="my-app">${' '.repeat(30)}
+	<Code lang="html" code={`<div id="myApp">${' '.repeat(30)}
 {#4;insert{  ▾#shadow-root (open)
-{#5;insert{  │ <slot>
-  │
-  └ </slot>
-}#}}#}  {#5;dim{<date-range name="range"></date-range>}#}
-</div>`}/>
-		<Code lang="html" code='<date-range name="range"></date-range>' p-fragment="5" effect="snatch" style="--from: 2ch -1lh; --to: 6ch -3lh; inset: auto auto 0 0"/>
-	</p-fragment>
-	<Code code={`const {#4;highlight{registry}#} = new CustomElementRegistry();
-{#insert{
-const scope = document.querySelector('#my-app')
-}#}{#4;insert{  .attachShadow({ mode: 'open', {#4;highlight{registry}#} });
-}#}{#5;insert{
-scope.shadowRoot.innerHTML = '<slot></slot>';
-}#}`} p-fragment class="s05 self-center"/>
-	<p-fragment index="6" flex="column" class="browser-support self-center" effect="from right" style="position: absolute; inset: 3em 4em 0 auto">
-		<div class="chrome">143?</div>
+{#5;insert{  └ {#6;highlight blue{<date-range name="inside"></date-range>}#}
+}#}}#}  {#6;highlight red{<date-range name="outside"></date-range>}#}
+</div>`} p-fragment="0" class="s05 self-center"/>
+	<Code code={`import DateRange from '@lib/date-range';
+{#5;insert{import MyDateRange from './date-range.js'
+}#}customElements.define('date-range', {#6;highlight red{DateRange}#});
+{#1;insert{const {#4;highlight{customElementRegistry}#} = new CustomElementRegistry();
+{#2;insert{customElementRegistry.define('date-range', {#6;highlight blue{MyDateRange}#});
+}#}{#4;insert{myApp.attachShadow({ mode: 'open', {#4;highlight{customElementRegistry}#} });
+}#}{#5;insert{myApp.shadowRoot.innerHTML = '<date-range name="inside"/>';
+}#}}#}`} p-fragment="0" class="s05 self-center"/>
+	<p-fragment index="7" flex="column" class="browser-support self-center" effect="from right" style="position: absolute; inset: 3em 3em 0 auto">
+		<div class="chrome">146</div>
 		<div class="firefox"></div>
 		<div class="safari">26</div>
 	</p-fragment>
@@ -74,7 +70,7 @@ scope.shadowRoot.innerHTML = '<slot></slot>';
 		</div>
 	</div>
 	<p-fragment class="browser-support self-center" effect="from bottom">
-		<div class="chrome">134</div>
+		<div class="chrome">???</div>
 		<div class="firefox">136</div>
 		<div class="safari"></div>
 	</p-fragment>
@@ -122,14 +118,14 @@ scope.shadowRoot.innerHTML = '<slot></slot>';
   button { display: none; }
 }`} class="s05" p-fragment/>
 		<p-fragment index="3" class="browser-support" effect="from bottom">
-			<div class="chrome"></div>
+			<div class="chrome">141</div>
 			<div class="firefox"></div>
-			<div class="safari">10.1</div>
+			<div class="safari" style="color: red">10.1</div>
 		</p-fragment>
 		<p-fragment class="browser-support" effect="from bottom">
 			<div class="chrome"></div>
-			<div class="firefox"></div>
-			<div class="safari"></div>
+			<div class="firefox">138</div>
+			<div class="safari">10.1</div>
 		</p-fragment>
 	</div>
 </p-slide>
@@ -149,7 +145,7 @@ class Alert extends HTML {
 }`} class="s05 self-center"/>
 	<p-fragment class="browser-support" effect="from bottom">
 		<div class="chrome">123</div>
-		<div class="firefox"></div>
+		<div class="firefox">147</div>
 		<div class="safari"></div>
 	</p-fragment>
 </p-slide>
@@ -226,8 +222,8 @@ this.shadowRoot.innerHTML = \`
 >	Open details </button>
 <my-dialog id="{#6;highlight blue{details}#}">...</my-dialog>`} class="s05 self-center" p-fragment/>
 	<p-fragment class="browser-support self-center" effect="from bottom">
-		<div class="chrome"></div>
-		<div class="firefox"></div>
-		<div class="safari"></div>
+		<div class="chrome">🏁</div>
+		<div class="firefox">🏁</div>
+		<div class="safari">🏁</div>
 	</p-fragment>
 </p-slide>

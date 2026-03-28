@@ -1,0 +1,42 @@
+---
+import Code from "../components/Code.astro";
+---
+
+<p-slide class="justify-start gap-08">
+	<hgroup>
+		<h3 class="h5">Declarative Custom Elements</h3>
+		<div>Because even DSD can suck</div>
+	</hgroup>
+	<div grid="2" class="align-center">
+		<Code lang="html" code={`<my-tag>
+  Verified
+{#1;insert{  <template shadowrootmode="open">
+    <style>/*...*/</style>
+    <slot></slot>
+  </template>
+}#}</my-tag>
+<my-tag variant="warning">
+  Pending
+{#1;insert{  <template shadowrootmode="open">
+    <style>/*...*/</style>
+    <slot></slot>
+  </template>
+}#}</my-tag>`} p-fragment class="s05 self-center"/>
+		<div flex="column" class="gap-08">
+			<Code lang="html" code={`<definition name="my-tag">
+  <template shadowrootmode="open">
+    <style>/*...*/</style>
+    <slot></slot>
+  </template>
+</definition>
+{#3;insert{
+<my-tag>Verified</my-tag>
+<my-tag variant="warning">Pending</my-tag>}#}`} p-fragment class="s05 self-center"/>
+		<p-fragment index="7" class="browser-support self-center" effect="from bottom">
+			<div class="chrome"></div>
+			<div class="firefox"></div>
+			<div class="safari"></div>
+		</p-fragment>
+	</div>
+</div>
+</p-slide>
