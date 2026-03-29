@@ -103,7 +103,7 @@ import Code from "../components/Code.astro";
 	<hgroup>
 		<h3 class="h4">Web Components can <strong>NOT*</strong> extend native elements</h3>
 	</hgroup>
-	<Code code={`const MyInput extends {#highlight{HTMLInputElement}#} {
+	<Code code={`class MyInput extends {#highlight{HTMLInputElement}#} {
   // ...
 }
 {#insert{

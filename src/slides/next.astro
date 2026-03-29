@@ -19,7 +19,7 @@ import Code from "../components/Code.astro";
 }#}}#}  {#6;highlight red{<date-range name="outside"></date-range>}#}
 </div>`} p-fragment="0" class="s05 self-center"/>
 	<Code code={`import DateRange from '@lib/date-range';
-{#5;insert{import MyDateRange from './date-range.js'
+{#2;insert{import MyDateRange from './date-range.js'
 }#}customElements.define('date-range', {#6;highlight red{DateRange}#});
 {#1;insert{const {#4;highlight{customElementRegistry}#} = new CustomElementRegistry();
 {#2;insert{customElementRegistry.define('date-range', {#6;highlight blue{MyDateRange}#});
