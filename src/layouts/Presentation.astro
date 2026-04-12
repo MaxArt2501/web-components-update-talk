@@ -61,9 +61,13 @@ import pkg from '../../package.json';
 </html>
 
 <style lang="scss" is:global>
+	@use 'sass:meta';
 	@use '../styles/index.scss';
 	@import url('p-slides/css/p-slides.css') layer(p-slides);
 	@import url('p-slides/css/effects.css') layer(p-slides);
+	@media print {
+		@include meta.load-css('../styles/print.scss');
+	}
 </style>
 <script src="../scripts/main.js"></script>
 <script src="../scripts/blob.js"></script>

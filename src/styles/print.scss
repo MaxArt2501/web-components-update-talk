@@ -1,0 +1,39 @@
+@page {
+  size: a4 landscape;
+}
+
+p-deck {
+	position: static;
+	display: flex;
+	flex-direction: column;
+	overflow: visible;
+}
+
+p-slide {
+	transform: none !important;
+	content-visibility: visible;
+	pointer-events: initial;
+	break-inside: avoid;
+	
+	&:not(:last-of-type) {
+		break-after: page;
+	}
+}
+
+p-fragment, [p-fragment] {
+	--fragment-progress: 1;
+	transition-duration: 0s;
+	transition-delay: 0s;
+
+	&:not([p-effect]) {
+		opacity: initial;
+	}
+}
+
+[p-effect] {
+	--fragment-progress: 1;
+}
+
+body > :not(p-deck) {
+	display: none !important;
+}
