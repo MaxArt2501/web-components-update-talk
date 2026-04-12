@@ -19,7 +19,7 @@ import Code from "../components/Code.astro";
 {#insert{  static observedAttributes = ['variant'];
 }#}{#1;insert{
   {#2;reveal{get }#}variant{#2;reveal{() {}#}
-{#4;collapse{    {#2;shrink{= }#}{#2;reveal{return this.getAttribute('variant') ?? }#}'default';
+{#4;-insert{    {#2;-reveal{= }#}{#2;reveal{return this.getAttribute('variant') ?? }#}'default';
 }#}{#4;insert{    const variant = this.getAttribute('variant');
     return {#4;highlight red{ALLOWED_VARIANTS.includes(variant)}#}
       {#4;highlight red{? variant : 'default'}#};
@@ -30,7 +30,7 @@ import Code from "../components/Code.astro";
 }#}    {#3;reveal{  }#}this.setAttribute('variant', variant);
 {#3;insert{    {#3;highlight{}}#}
 }#}  }
-}#}{#2;collapse{
+}#}{#2;-insert{
 }#}  attributeChangedCallback(name, oldValue, value) {${'  '}
     if (name === 'variant') {
       this.variant = value;
@@ -77,7 +77,7 @@ import Code from "../components/Code.astro";
 </p-slide>
 <p-slide>
 	<div class="alert" aria-label="Example of an alert element">
-		<header p-fragment="1" effect="insert">Please take action</header>
+		<header p-fragment="1" p-effect="insert">Please take action</header>
 		Something went wrong: check the log
 		<button type="button" p-fragment="4"></button>
 	</div>
@@ -124,7 +124,7 @@ import Code from "../components/Code.astro";
 		<ul>
 			<li>General</li>
 			<li>Profile</li>
-			<li><p-fragment index="5" effect="shrink">Privacy</p-fragment><p-fragment index="5" effect="reveal">Permissions</p-fragment></li>
+			<li><p-fragment index="5" p-effect="reveal" aria-hidden="false">Privacy</p-fragment><p-fragment index="5" p-effect="reveal">Permissions</p-fragment></li>
 			<li p-fragment="3">Role</li>
 		</ul>
 		<div class="panels"></div>
@@ -327,7 +327,7 @@ import Code from "../components/Code.astro";
 <p-slide class="justify-evenly">
 	<Code code={`{#0;insert{import { {#4;reveal{css, }#}{#1;reveal{html, }#}LitElement{#2;reveal{, repeat}#} } from 'lit';
 
-}#}class TabGroup extends {#0;highlight blue{{#0;shrink{HTML}#}{#0;reveal{Lit}#}Element}#} {
+}#}class TabGroup extends {#0;highlight blue{{#0;-reveal{HTML}#}{#0;reveal{Lit}#}Element}#} {
 {#4;insert{  static styles = css${'`'}
 		:host { display: flex; }
 	${'`'};

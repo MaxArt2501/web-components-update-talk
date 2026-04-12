@@ -26,7 +26,7 @@ import Code from "../components/Code.astro";
 }#}{#4;insert{myApp.attachShadow({ mode: 'open', {#4;highlight{customElementRegistry}#} });
 }#}{#5;insert{myApp.shadowRoot.innerHTML = '<date-range name="inside"/>';
 }#}}#}`} p-fragment="0" class="s05 self-center"/>
-	<p-fragment index="7" flex="column" class="browser-support self-center" effect="from right" style="position: absolute; inset: 3em 3em 0 auto">
+	<p-fragment index="7" flex="column" class="browser-support self-center" p-effect="from right" style="position: absolute; inset: 3em 3em 0 auto">
 		<div class="chrome">146</div>
 		<div class="firefox"></div>
 		<div class="safari">26</div>
@@ -45,9 +45,9 @@ import Code from "../components/Code.astro";
   │ <slot>
   │
   └ </slot>
-}#}{#1;collapse{
+}#}{#1;-insert{
 }#}</my-alert>`}/>
-			<Code lang="html" code='Something went wrong: check the log' p-fragment="1" effect="snatch" style="--from: 2ch -1lh; --to: 6ch -2lh; inset: auto auto 0 0"/>
+			<Code lang="html" code='Something went wrong: check the log' p-fragment="1" p-effect="snatch" style="--from: 2ch -1lh; --to: 6ch -2lh; inset: auto auto 0 0"/>
 		</div>
 		<Code lang="css" code={`slot[name='header'] {
 {#3;insert{  display: block;
@@ -60,16 +60,16 @@ import Code from "../components/Code.astro";
   }
 }#}}`} p-fragment style="grid-row-end: span 2;"/>
 		<div class="alert" aria-label="Example of an alert element">
-			<p-fragment index="3" effect="insert">
-				<header p-fragment="5" effect="collapse">Please take action</header>
-				<p-fragment index="7" effect="collapse">
-					<hr p-fragment="4" effect="insert">
+			<p-fragment index="3" p-effect="insert">
+				<header p-fragment="5" p-effect="insert" aria-hidden="false">Please take action</header>
+				<p-fragment index="7" p-effect="insert" aria-hidden="false">
+					<hr p-fragment="4" p-effect="insert">
 				</p-fragment>
 			</p-fragment>
 			Something went wrong: check the log
 		</div>
 	</div>
-	<p-fragment class="browser-support self-center" effect="from bottom">
+	<p-fragment class="browser-support self-center" p-effect="from below">
 		<div class="chrome">???</div>
 		<div class="firefox">136</div>
 		<div class="safari"></div>
@@ -117,12 +117,12 @@ import Code from "../components/Code.astro";
 		<Code lang="css" code={`:host(:has(button)) {
   button { display: none; }
 }`} class="s05" p-fragment/>
-		<p-fragment index="3" class="browser-support" effect="from bottom">
+		<p-fragment index="3" class="browser-support" p-effect="from below">
 			<div class="chrome">141</div>
 			<div class="firefox"></div>
 			<div class="safari" style="color: red">10.1</div>
 		</p-fragment>
-		<p-fragment class="browser-support" effect="from bottom">
+		<p-fragment class="browser-support" p-effect="from below">
 			<div class="chrome"></div>
 			<div class="firefox">138</div>
 			<div class="safari">10.1</div>
@@ -143,7 +143,7 @@ class Alert extends HTML {
 		this.shadowRoot.adoptedStyleSheets = [ {#highlight{styles}#} ];
 	}
 }`} class="s05 self-center"/>
-	<p-fragment class="browser-support" effect="from bottom">
+	<p-fragment class="browser-support" p-effect="from below">
 		<div class="chrome">123</div>
 		<div class="firefox">147</div>
 		<div class="safari"></div>
@@ -165,7 +165,7 @@ class Alert extends HTML {
   └ </button>
 }#}</info-point>`}>
 				<svg viewBox="0 0 40 30" style="height: 7lh; aspect-ratio: 4 / 3; left: 3ch">
-					<path stroke="red" d="M4,18A20,11 0 0 1 6,5" p-fragment="2" effect="drawing arrow" style="--length: 15.83"/>
+					<path stroke="red" d="M4,18A20,11 0 0 1 6,5" p-fragment="2" p-effect="drawing arrow" style="--length: 15.83"/>
 				</svg>
 			</Code>
 			<Code code={`this.shadowRoot
@@ -185,7 +185,7 @@ class Alert extends HTML {
   └ </dialog>
 }#}</my-modal>`}>
 				<svg viewBox="0 0 40 30" style="height: 7lh; aspect-ratio: 4 / 3; inset: auto auto 3lh 9ch">
-					<path stroke="red" d="M28,9A20,11 0 0 1 32,25" p-fragment="10" effect="drawing arrow" style="--length: 21.85"/>
+					<path stroke="red" d="M28,9A20,11 0 0 1 32,25" p-fragment="10" p-effect="drawing arrow" style="--length: 21.85"/>
 				</svg>
 			</Code>
 			<Code code={`this.previousElementSibling
@@ -221,7 +221,7 @@ this.shadowRoot.innerHTML = \`
   commandfor="{#6;highlight blue{details}#}"
 >	Open details </button>
 <my-dialog id="{#6;highlight blue{details}#}">...</my-dialog>`} class="s05 self-center" p-fragment/>
-	<p-fragment class="browser-support self-center" effect="from bottom">
+	<p-fragment class="browser-support self-center" p-effect="from below">
 		<div class="chrome">🏁</div>
 		<div class="firefox">🏁</div>
 		<div class="safari">🏁</div>

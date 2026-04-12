@@ -240,9 +240,10 @@ export const getAncestorChild = (descendant, ancestor, before) => {
  * @typedef {Object} FragmentBlock
  * @property {TextNodePointer} start
  * @property {TextNodePointer} end
- * @property {{ index?: string }} properties
+ * @property {{ index?: string, 'p-effect'?: string, 'p-group'?: string, 'aria-hidden'?: 'false' }} properties
  */
-const FRAGMENT_BOUNDARY_RE = /(\{#(\d*(?:\.\d+)?(?:;[a-z][a-z-]*(?: +[a-z][a-z-]*)*)?|[a-zA-Z-]*)\{)|((?<!\\)\}#\})/gi;
+const FRAGMENT_BOUNDARY_RE = /(\{#(\d*(?:\.\d+)?(?::(?:[a-z][a-z-]*)?(?: +[a-z][a-z-]*)*)?(?:;-?[a-z][a-z-]*(?: +[a-z][a-z-]*)*)?|-?[a-z-]*(?: +[a-z][a-z-]*)*)\{)|((?<!\\)\}#\})/gi;
+const INDEX_RE = /((?:\d*\.)?\d+)?(?::([^;}]*))?(?:;?([^{]+))?/;
 /**
  * @param {TreeNode} root
  * @returns {Generator<FragmentBlock>}
@@ -255,7 +256,7 @@ export function* generateFragments(root) {
 	let match;
 	let textNodes = Array.from(getTextNodes(root));
 	let fullText = textNodes.map(node => node.value).join('');
-	// biome-ignore lint/suspicious/noAssignInExpressions: avoid verbosity
+
 	while ((match = FRAGMENT_BOUNDARY_RE.exec(fullText))) {
 		if (match?.[1]) {
 			startStack.push(match);
@@ -268,12 +269,13 @@ export function* generateFragments(root) {
 			const end = getTextNodeAtIndex(match.index + 3, textNodes, true);
 			const properties = {};
 			if (startMatch[2]) {
-				const [index, effect] = startMatch[2].split(/\s*;\s*/);
-				if (!effect) {
-					properties[isNaN(index) ? 'effect' : 'index'] = index;
-				} else {
-					properties.index = index || undefined;
-					properties.effect = effect || undefined;
+				const [, index, group, effect] = startMatch[2].match(INDEX_RE);
+				if (index) properties.index = index;
+				if (group) properties['p-group'] = group;
+				if (effect) {
+					const isInitiallyVisible = effect[0] === '-';
+					properties['p-effect'] = isInitiallyVisible ? effect.slice(1) : effect;
+					if (isInitiallyVisible) properties['aria-hidden'] = 'false';
 				}
 			}
 			yield { start, end, properties };

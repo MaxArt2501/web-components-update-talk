@@ -61,13 +61,13 @@ import IdePopover from '../components/IdePopover.astro';
 		<Code code={`class Table extends HTMLElement {
   handleSortColumn() {
     this.dispatchEvent(
-      new {#9;reveal{{#9;highlight green{SortEvent}#}}#}{#highlight{{#9;shrink{CustomEvent}#}}#}({#9;shrink{{#6;highlight green{'ui.sort'}#}, {}#}
-{#9;collapse{        {#2;highlight red{detail}#}: {
-}#}        {#9;shrink{  column: }#}this.sortColumn,
-        {#9;shrink{  direction: }#}this.sortDirection
-{#9;collapse{        },
+      new {#9;reveal{{#9;highlight green{SortEvent}#}}#}{#highlight{{#9;-reveal{CustomEvent}#}}#}({#9;-reveal{{#6;highlight green{'ui.sort'}#}, {}#}
+{#9;-insert{        {#2;highlight red{detail}#}: {
+}#}        {#9;-reveal{  column: }#}this.sortColumn,
+        {#9;-reveal{  direction: }#}this.sortDirection
+{#9;-insert{        },
         {#7;highlight green{cancelable: true}#}
-}#}      {#9;shrink{}}#})
+}#}      {#9;-reveal{}}#})
     );
   }
 }`} class="s05" p-fragment/>
@@ -151,8 +151,8 @@ export class PresentationDeckElement extends HTMLElement {
 }`} class="s05" p-fragment />
 </p-slide>
 <p-slide class="align-center">
-	<div class="h5" effect="falling">💪 <strong>Out of the box</strong> in JetBrains IDEs</div>
-	<div class="h5" effect="from bottom" p-fragment>😑 <strong>Needs "conversion"</strong> in VS Code</div>
+	<div class="h5" p-effect="dropping from above">💪 <strong>Out of the box</strong> in JetBrains IDEs</div>
+	<div class="h5" p-effect="from below" p-fragment>😑 <strong>Needs "conversion"</strong> in VS Code</div>
 	<Code lang="text" code="npm i -D {#1;highlight{custom-elements-vs-code-integration}#}" class="s07" p-fragment="1"/>
 </p-slide>
 <p-slide class="align-center">

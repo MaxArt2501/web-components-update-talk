@@ -5,8 +5,8 @@ const presentation = Astro.url.pathname.replace(/^\/+|\/+$/g, '').split('/').at(
 const href = `https://maxart2501.github.io/web-components-update-talk/${presentation}/`;
 ---
 <p-slide>
-	<QrCode content={href} effect="falling" style="--from: -80cqh" aria-label="QR Code to the slides"/>
-	<a href={href} class="center" effect="falling" style="--from: 25cqh">
+	<QrCode content={href} p-effect="move dropping" style="--from-y: -80cqh" aria-label="QR Code to the slides"/>
+	<a href={href} class="center" p-effect="move dropping" style="--from-y: 25cqh">
 		{href.slice(8, -1)}
 	</a>
 </p-slide>

@@ -109,7 +109,7 @@ text {
 	alignment-baseline: middle;
 }
 
-:is(line, path, polyline, polygon):is(.arrow, [effect~='arrow']) {
+:is(line, path, polyline, polygon):is(.arrow, [p-effect~='arrow']) {
 	fill: none;
 	&.double {
 		marker-start: url('#arrow-head');
@@ -117,11 +117,11 @@ text {
 	&:not([stroke]) {
 		stroke: #000;
 	}
-	&:not([effect~='arrow']), &[aria-hidden='false'] {
+	&:not([p-effect~='arrow']), &[aria-hidden='false'] {
 		marker-end: url('#arrow-head');
 	}
-	&[effect~='drawing'] {
-		transition-property: stroke-dasharray, marker-end;
+	&[p-effect~='drawing'] {
+		transition-property: --fragment-progress, marker-end;
 		transition-behavior: allow-discrete;
 	}
 }

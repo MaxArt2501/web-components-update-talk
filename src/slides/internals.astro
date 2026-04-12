@@ -11,7 +11,7 @@ import Code from "../components/Code.astro";
 		<small>You're doing it wrong</small>
 	</hgroup>
 	<div flex class="self-center align-center gap-1">
-		<Code lang="html" code={`<chart-gauge value="42"{#insert{  role="{#3;shrink{meter}#}{#3;reveal{{#5;strike{progressbar}#}}#}{#5;reveal{meter}#}"}#}{#insert{  aria-valuemin="0"
+		<Code lang="html" code={`<chart-gauge value="42"{#insert{  role="{#3;-reveal{meter}#}{#3;reveal{{#5;strike{progressbar}#}}#}{#5;reveal{meter}#}"}#}{#insert{  aria-valuemin="0"
   aria-valuemax="100"
   aria-valuenow="42"}#}/>`} p-fragment="0" class="s05"/>
 		<div class="gauge" p-fragment="0"></div>
@@ -82,19 +82,19 @@ this.#internals.ariaValueNow = String(this.value);}#}`} class="s08 self-center"/
 			<code>role</code>
 		</div>
 		<pre p-fragment style="background: #ffbbbb; padding: 0.4em; border: .1em solid; border-radius: .6em; box-shadow: 0 0 0 100vmax #0006;">aria-errormessage
-<p-fragment index="3" effect='highlight'>aria-activedescendant</p-fragment>
-<p-fragment index="2" effect='highlight'>aria-controls</p-fragment>
-<p-fragment index="1" effect='highlight'>aria-describedby</p-fragment>
+<p-fragment index="3" p-effect='highlight'>aria-activedescendant</p-fragment>
+<p-fragment index="2" p-effect='highlight'>aria-controls</p-fragment>
+<p-fragment index="1" p-effect='highlight'>aria-describedby</p-fragment>
 aria-details
 aria-flowto
-<p-fragment index="1" effect='highlight'>aria-labelledby</p-fragment>
+<p-fragment index="1" p-effect='highlight'>aria-labelledby</p-fragment>
 aria-owns</pre>
 	</div>
 </p-slide>
 <p-slide class="justify-around">
 	<hgroup>
 		<h3><strong>Custom</strong> states</h3>
-		<p-fragment effect="insert">Or custom pseudo-classes</p-fragment>
+		<p-fragment p-effect="insert">Or custom pseudo-classes</p-fragment>
 	</hgroup>
 	<p-fragment flex="column" class="center">All custom elements:
 		<code>:defined</code>
