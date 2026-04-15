@@ -120,7 +120,7 @@ const bt = '`';
   </button>`} class="s05" p-fragment="2" p-effect="fade to-be-trashed"/>
 			<div class="stack" p-fragment="3" p-effect="fade tip-and-catch">
 				<img src="../img/trash.png" alt="Trash bin" h="3">
-				<img src="../img/trash-full.png" alt="Trash bin" h="3">
+				<img src="../img/trash-full.png" alt="Full trash bin" h="3">
 			</div>
 		</div>
 	</div>
@@ -152,7 +152,7 @@ const bt = '`';
 				class="s05"
 				p-fragment="2"
 				p-effect="snatch"
-				style="--from: calc(2em + 40ch) 1lh; --to: 6ch 4lh"
+				style="--from-x: calc(2em + 40ch); --from-y: 1lh; --to-x: 6ch; --to-y: 4lh"
 			/>
 			<Code
 				lang="html"
@@ -160,7 +160,7 @@ const bt = '`';
 				class="s05"
 				p-fragment="2"
 				p-effect="snatch"
-				style="--from: calc(2em + 40ch) 2lh; --to: 6ch 7lh"
+				style="--from-x: calc(2em + 40ch); --from-y: 2lh; --to-x: 6ch; --to-y: 7lh"
 			/>
 		</p-fragment>
 	</div>
@@ -191,7 +191,7 @@ const bt = '`';
 			class="s05"
 			p-fragment="1"
 			p-effect="snatch"
-			style="--from: 2ch 10lh; --to: 8ch 4lh"
+			style="--from-x: 2ch; --from-y: 10lh; --to-x: 8ch; --to-y: 4lh"
 		/>
 			<Code
 			lang="html"
@@ -199,7 +199,7 @@ const bt = '`';
 			class="s05"
 			p-fragment="1"
 			p-effect="snatch"
-			style="--from: 2ch 11lh; --to: 8ch 9lh"
+			style="--from-x: 2ch; --from-y: 11lh; --to-x: 8ch; --to-y: 9lh"
 		/>
 		<p-fragment class="grow">
 			<Code code={`this.attachShadow({
@@ -410,8 +410,8 @@ contentSlot.{#4;highlight{assign}#}(...nodes.{#5;highlight blue{content}#});}#}`
     padding-block: 0;
 		top: calc(.5em + 1lh);
     left: 0;
-		transition-property: opacity, transform;
 		&[previous] {
+			transition-property: transform;
 			transform: translateX(20em) scale(0);
 		}
 	}
